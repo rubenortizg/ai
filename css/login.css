@@ -1,0 +1,54 @@
+form {
+  width: 25%;
+  border: 1px solid #CCC;
+  margin: 80px auto;
+  padding: 20px;
+  font-family: 'Raleway', sans-serif;
+  }
+
+.logotipo {
+  margin: 20px auto;;
+  display: block;
+}
+
+h2 {
+  text-align: center;
+  font-size: 18px;
+}
+
+label, a {
+  font-size: 13px;
+  display: block;
+  width: 100%;
+}
+
+a {
+  margin: 10px auto;
+  text-align: center;
+}
+
+input {
+  margin-bottom: 20px;
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  border: 1px solid #CCC;
+}
+
+input:focus {
+  border: 1px solid #1668C4;
+}
+
+input[type="submit"] {
+  margin-bottom: 0;
+  background: #1668C4;
+  color: #FFF;
+  border: none;
+
+}
+
+input[type="submit"]:hover {
+  background: #4A88F4;
+  cursor: pointer;
+
+}
