@@ -1,41 +1,38 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Administrador Inmobiliario</title>
-    <link rel="stylesheet" href="css/login.css">
-    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+<?php session_start();
 
-  </head>
-  <body>
+if (isset($_SESSION['usuario'])) {
+  header('Location: index.php');
+}
 
-    <section>
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+  $usuario = filter_var(strtolower($_POST['usuario']), FILTER_SANITIZE_STRING);
+  $password = $_POST['password'];
+  $password = hash('sha512', $password);
 
-      <form action="login.php" method="post">
+  $errores = '';
 
-        <div>
-          <img class="logotipo" src="imagenes/ai_branch.png" width="200" alt="logotipo">
-        </div>
-        <?php
-          echo "<h2>Administrador Inmobiliario</h2>";
-        ?>
-        <label for="usuario">Usuario</label>
-        <input type="text" id="usuario" placeholder="Escriba su usuario" >
+  try {
+    $conexion = new PDO('mysql:host=localhost;dbname=ai', 'root', '');
+  } catch (PDOException $e) {
+    echo "Error: " . $e->getMessage();
+  }
 
-        <label for="password">Contraseña</label>
-        <input type="password" id="password" placeholder="Escriba su contraseña">
+  $statement = $conexion->prepare('SELECT * FROM usuarios WHERE usuario = :usuario AND password = :password');
 
-        <br>
-        <input type="submit" name="" value="SIGUIENTE">
-        <br>
-        <a href="#">¿Has olvidado la contraseña?</a>
-      </form>
-    </section>
+  $statement->execute(array(':usuario' => $usuario, ':password' => $password));
 
+  $resultado = $statement->fetch();
 
+  if ($resultado !== false) {
+    $_SESSION['usuario'] = $usuario;
+    header('Location: index.php');
+  } else {
+    $errores .= '<li>Datos incorrectos</>';
+  }
+  print_r($resultado);
 
+}
 
 
-
-  </body>
-</html>
+require 'vista/login.view.php';
+?>
