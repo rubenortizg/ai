@@ -1,0 +1,7 @@
+hex
+#ebebeb - gris claro
+#5499c7 - azul hover
+#2980b9 - azul base fondo
+#2e4053 - azul oscuro hover
+#d2b4de - morado claro
+#d1f2eb - verde claro

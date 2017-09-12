@@ -4,6 +4,8 @@ if (!isset($_SESSION['usuario'])) {
   header('Location: index.php');
 }
 
+require 'admin/config.php';
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $usuario = filter_var(strtolower($_POST['usuario']), FILTER_SANITIZE_STRING);
   $password = $_POST['password'];
@@ -14,13 +16,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   if (empty($usuario) or empty($password) or empty($password2) ) {
     $errores .= '<li>Por favor rellena todos los datos solicitados</li>';
   } else {
-    try {
-      $conexion = new PDO('mysql:host=localhost;dbname=ai', 'root', '');
-    } catch (PDOException $e) {
-      echo "Error: " . $e->getMessage();
+
+    $conexion = conexion($db_config);
+    if (!$conexion) {
+      header('Location: error.php');
     }
 
-    $statement = $conexion->prepare('SELECT * FROM usuarios WHERE usuario = :usuario LIMIT 1');
+//    try {
+//      $conexion = new PDO('mysql:host=localhost;dbname=ai', 'root', '');
+//    } catch (PDOException $e) {
+//      echo "Error: " . $e->getMessage();
+//    }
+
+    $sql='SELECT * FROM usuarios WHERE usuario = :usuario LIMIT 1';
+    $statement = $conexion->prepare($sql);
     $statement->execute(array(':usuario' => $usuario));
     $resultado = $statement->fetch();
 
@@ -40,14 +49,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   }
 
   if ($errores == '') {
-    $statement = $conexion->prepare('INSERT INTO usuarios (id, usuario, password) VALUES (null, :usuario, :password)');
+    $sql='INSERT INTO usuarios (id, usuario, password) VALUES (null, :usuario, :password)';
+    $statement = $conexion->prepare($sql);
     $statement->execute(array(':usuario' => $usuario, ':password' => $password));
 
     header('Location: login.php');
   }
 
 }
-
 
 require 'vista/registrar.view.php';
 ?>

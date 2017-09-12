@@ -4,21 +4,25 @@ if (isset($_SESSION['usuario'])) {
   header('Location: index.php');
 }
 
+require 'admin/config.php';
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+  require 'functions.php';
+
   $usuario = filter_var(strtolower($_POST['usuario']), FILTER_SANITIZE_STRING);
   $password = $_POST['password'];
   $password = hash('sha512', $password);
 
   $errores = '';
 
-  try {
-    $conexion = new PDO('mysql:host=localhost;dbname=ai', 'root', '');
-  } catch (PDOException $e) {
-    echo "Error: " . $e->getMessage();
+  $conexion = conexion($db_config);
+  if (!$conexion) {
+    header('Location: error.php');
   }
 
-  $statement = $conexion->prepare('SELECT * FROM usuarios WHERE usuario = :usuario AND password = :password');
-
+  $sql="SELECT * FROM usuarios WHERE usuario = :usuario AND password = :password";
+  $statement = $conexion->prepare($sql);
   $statement->execute(array(':usuario' => $usuario, ':password' => $password));
 
   $resultado = $statement->fetch();
@@ -29,10 +33,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   } else {
     $errores .= '<li>Datos incorrectos</>';
   }
-  print_r($resultado);
 
 }
 
-
 require 'vista/login.view.php';
+
 ?>

@@ -1,33 +1,87 @@
-form {
-  width: 25%;
-  border: 1px solid #CCC;
-  margin: 80px auto;
-  padding: 20px;
-  font-family: 'Raleway', sans-serif;
-  }
+/* --- Global ---*/
 
-.logotipo {
-  margin: 20px auto;;
-  display: block;
+* {
+	margin: 0;
+	padding: 0;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
 }
 
-h2 {
-  text-align: center;
-  font-size: 18px;
+body {
+	font-size: 16px;
+	font-family: 'Raleway', sans-serif;
+	background: #ebebeb;
 }
 
-label, a {
-  font-size: 13px;
-  display: block;
-  width: 100%;
+h1, h2, h3, h4, h5, h6 {
+	font-family: "Raleway", Arial, Sans-serif;
+	font-weight: normal;
 }
 
 a {
+	text-decoration: none;
+	color:#2e4053;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+.contenedor {
+	max-width: 1000px;
+	width: 90%;
+	margin: auto;
+}
+
+.izquierda {
+	float: left;
+}
+
+.derecha {
+	float: right;
+}
+
+
+/* --- Login --- */
+
+.formulario {
+  width: 30%;
+	border: 1px solid #CCC;
+  margin: 50px auto;
+  padding: 20px;
+  font-family: 'Raleway', sans-serif;
+}
+
+.logotipo {
+  margin: 20px auto;
+  display: block;
+}
+
+.formulario h2 {
+  text-align: center;
+  font-size: 24px;
+}
+
+.formulario label,
+.formulario a {
+  font-size: 13px;
+  display: inline-block;
+  width: 100%;
+}
+
+.formulario a {
   margin: 10px auto;
   text-align: center;
 }
 
-input {
+.errores {
+  font-weight: bold;
+  font-size: 14px;
+  color: red;
+}
+
+.formulario input {
   margin-bottom: 20px;
   width: 100%;
   padding: 10px;
@@ -35,25 +89,624 @@ input {
   border: 1px solid #CCC;
 }
 
-input:focus {
+.formulario input:focus {
   border: 1px solid #1668C4;
 }
 
-input[type="submit"] {
+.formulario input[type="submit"] {
   margin-bottom: 0;
-  background: #1668C4;
+  background: #2980b9;
   color: #FFF;
   border: none;
-
 }
 
-input[type="submit"]:hover {
+.formulario input[type="submit"]:hover {
   background: #4A88F4;
   cursor: pointer;
+}
+
+/* --- Header ---*/
+
+header {
+	color:#fff;
+	margin-bottom: 30px;
+	background:  #2980B9;
+}
+
+header .contenedor {
+	overflow: hidden;
+}
+
+header .logo {
+	max-width: 315px;
+}
+
+header .logo a {
+	color: #fff;
+	font-family: "Raleway", Arial, Sans-serif;
+	font-size: 20px;
+	line-height: 70px;
+	font-weight: bold;
+}
+
+header .logo a:hover {
+	text-decoration: none;
+}
+
+header .buscar {
+	display: inline-block;
+	position: relative;
+	margin-right: 15px;
+}
+
+header .buscar input[type="text"]{
+	background: none;
+	border:1px solid rgba(255,255,255,.7);
+	color:rgba(255,255,255,.7);
+	height: 30px;
+	padding: 0 10px;
+	padding-right: 32px;
+}
+
+/* --- Placeholder ---*/
+header .buscar input[type="text"]::-webkit-input-placeholder { color: #fff; }
+header .buscar input[type="text"]:-moz-placeholder { color: #fff; }
+header .buscar input[type="text"]::-moz-placeholder { color: #fff; }
+header .buscar input[type="text"]:-ms-input-placeholder { color: #fff; }
+
+
+header .buscar input[type="text"]:hover,
+header .buscar input[type="text"]:focus {
+	color:#fff;
+	border:1px solid #fff;
+}
+
+header .buscar .icono {
+	color:rgba(255,255,255,.7);
+	position: absolute;
+  top: 0;
+	right: 0;
+	background: none;
+	border:none;
+	cursor:pointer;
+	padding: 6px;
+	font-size: 16px;
+	line-height: 16px;
+}
+
+header .buscar .icono:hover {
+	color: #fff;
+}
+
+header .menu {
+	display: inline-block;
+}
+
+header .menu ul {
+	list-style: none;
+}
+
+header .menu ul li {
+	display: inline-block;
+	line-height: 70px;
+}
+
+header .menu ul li ul li {
+	display: block;
+	line-height: 40px;
+}
+
+header .menu ul li a {
+	color: #fff;
+	display: block;
+	padding: 0px 8px;
+	font-weight: bold;
+}
+
+header .menu > li {
+	float: left;
+}
+
+header .menu li ul{
+	display: none;
+	position: absolute;
+	min-width: 103px;
+	max-width: 103px;
+}
+
+header .menu li:hover > ul{
+	display: block;
+}
+
+header .menu li ul li{
+	position: relative;
+}
+
+header .menu li ul {
+	background-color: #2980b9
+}
+
+header .menu li ul li ul{
+	right: -103px;
+	top:0;
+}
+header .menu ul li a:hover {
+	background: #2e4053;
+	text-decoration: none;
+}
+
+header .menu ul li a .icono {
+	margin-left: 15px;
+}
+
+
+/* --- Contenedor --- */
+
+.contenedor p {
+	font-size: 16px;
+	font-weight: bold;
+}
+
+table {
+	font-size: 12px;
+	font-family: Arial, Sans-serif;
+  border-collapse: collapse;
+	width: 100%;
 
 }
 
-.errores {
-  font-size: 11px;
-  color: red;
+td, th {
+  border: 1px solid #cccccc;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+/* --- Paginacion --- */
+
+.paginacion {
+	margin-bottom: 30px;
+}
+
+.paginacion ul {
+	list-style: none;
+	text-align: center;
+}
+
+.paginacion ul li {
+	display: inline-block;
+	margin:0 5px;
+	color:#fff;
+}
+
+.paginacion ul li a {
+	display: block;
+	padding:10px 20px;
+	background: #595959;
+	color:#fff;
+}
+
+.paginacion ul li a:hover {
+	background: #2980B9;
+	text-decoration: none;
+}
+
+.paginacion ul .active {
+	background: #2980B9;
+	padding:10px 20px;
+}
+
+.paginacion ul .disabled{
+	background: #a8a8a8;
+	padding:10px 20px;
+	cursor: not-allowed;
+}
+
+.paginacion ul .disabled:hover {
+	background: #a8a8a8;
+}
+
+
+/* --- Recibos --- */
+
+.recibo {
+	width: 100%;
+	max-height: 600px;
+	background: #fff;
+	box-shadow: 0px 0px 5px rgba(0,0,0, .5);
+	margin: auto;
+	margin-bottom: 30px;
+	padding: 10px;
+}
+
+.recibo table {
+	margin-top: 45px;
+	width: 60%;
+	box-shadow: 0px 0px 1px rgba(0,0,0,.5);
+}
+
+.head {
+	text-align: center;
+	position: relative;
+	top: -10px;
+	margin: auto;
+	font-size: 16px;
+	margin-top: 0px;
+}
+
+.contorno {
+	width: 100%;
+	height: 80px;
+	margin: auto;
+	margin-bottom: -10px;
+	padding: 20px;
+}
+
+.contorno h2 {
+	font-size: 18px;
+	font-family: "Raleway",Arial, Sans-serif;
+}
+
+.contorno h2 .enfasis {
+	font-style: italic;
+	font-family: Arial, Sans-serif;
+	text-decoration: underline;
+}
+
+.nrecibo {
+	float: left;
+	text-align: left;
+	margin-left: 10px;
+}
+
+.valor {
+	float: right;
+	text-align: left;
+	margin-right: 30px;
+}
+
+.nrecibo label, .valor label {
+	font-size: 18px;
+	font-family: "Raleway",Arial, Sans-serif;
+}
+
+.nrecibo input, .valor input {
+	width: 100px;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.contenido {
+	width: 100%;
+	margin: auto;
+	position: relative;
+}
+
+.contenidoNuevo {
+	width: 100%;
+	margin: auto;
+	position: relative;
+	margin-left: 30px;
+}
+
+form div {
+	margin-bottom: 5px;
+}
+
+input {
+  width : 150px;
+  margin: 0;
+
+  -webkit-box-sizing: border-box; /* For legacy WebKit based browsers */
+	-moz-box-sizing: border-box; /* For legacy (Firefox <29) Gecko based browsers */
+  box-sizing: border-box;
+}
+
+
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 80%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+}
+
+/* The Close Button */
+.close, .closeInmueble {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus,
+.closeInmueble:hover,
+.closeInmueble:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-header {
+    padding: 2px 16px;
+    background-color: #2980b9;
+    color: white;
+}
+
+.modal-body {padding: 2px 16px;}
+
+.modal-footer {
+    padding: 2px 16px;
+    background-color: #2980b9;
+    color: white;
+}
+
+
+
+/* --- Calendario --- */
+
+.ui-datepicker
+{
+width: auto;
+background: #ebebeb;
+}
+
+.ui-datepicker .ui-state-active
+{
+background: #2980b9;
+color: #fff;
+}
+
+/* --- Recibos --- */
+
+.fecha {
+	position: absolute;
+	top: 0;
+	left: 180px;
+	width: 300px;
+	height: 40px;
+}
+
+.fecha label {
+    display: inline-block;
+    width: 100px;
+    text-align: right;
+}
+
+.arrendatario input {
+	width : 405px;
+	margin: 0;
+
+	-webkit-box-sizing: border-box; /* For legacy WebKit based browsers */
+	-moz-box-sizing: border-box; /* For legacy (Firefox <29) Gecko based browsers */
+	box-sizing: border-box;
+}
+
+.valorLetras input {
+	width : 425px;
+	margin: 0;
+
+	-webkit-box-sizing: border-box; /* For legacy WebKit based browsers */
+	-moz-box-sizing: border-box; /* For legacy (Firefox <29) Gecko based browsers */
+	box-sizing: border-box;
+}
+
+.inmueble {
+	position: absolute;
+	top: 118px;
+	left: 250px;
+	width: 300px;
+	height: 40px;
+}
+
+.inmueble input {
+	width : 145px;
+	margin: 0;
+
+	-webkit-box-sizing: border-box; /* For legacy WebKit based browsers */
+	-moz-box-sizing: border-box; /* For legacy (Firefox <29) Gecko based browsers */
+	box-sizing: border-box;
+}
+
+.direccion input {
+	width : 413px;
+	margin: 0;
+
+	-webkit-box-sizing: border-box; /* For legacy WebKit based browsers */
+	-moz-box-sizing: border-box; /* For legacy (Firefox <29) Gecko based browsers */
+	box-sizing: border-box;
+}
+
+.fperiodo {
+	position: absolute;
+	top: 195px;
+	left: 329px;
+	width: 300px;
+	height: 40px;
+}
+
+.boton {
+	position: absolute;
+	top: 555px;
+	left: 760px;
+	width: 300px;
+	height: 40px;
+}
+
+.topLeft {
+	position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.logoRecibo {
+	display: block;
+	position: relative;
+	left: -210px;
+	top: 30px;
+	margin: auto;
+	width: 15%;
+	height: auto;
+}
+
+.imagenReciboFondo {
+	display: block;
+	margin: auto;
+	width: 55%;
+	height: auto;
+	opacity: 0.3;
+
+}
+
+.contenido p{
+	margin: 15px;
+	padding-left: 15px;
+	font-size: 12px;
+	font-family: "Raleway",Arial, Sans-serif;
+}
+
+.contenido p .enfasis {
+	font-style: italic;
+	font-weight: bolder;
+	font-size: 14px;
+	text-decoration: underline;
+}
+
+.firma {
+	width: 100%;
+	margin: auto;
+	margin-top: 40px;
+	text-align: center;
+}
+
+.firma h2 {
+	font-size: 16px;
+	font-style: italic;
+	font-weight: bolder;
+}
+
+.firma p {
+	text-decoration: overline;
+	text-decoration-style: solid;
+	font-size: 14px;
+	font-family: "Raleway",Arial, Sans-serif;
+}
+
+
+/* --- Clientes --- */
+
+.identificacion {
+	position: absolute;
+	top: 0;
+	left: 238px;
+	width: 300px;
+	height: 40px;
+}
+
+.identificacion label {
+    display: inline-block;
+    width: 100px;
+    text-align: right;
+}
+
+
+/* --- Cajas --- */
+
+.clientes, .inmuebles, .recibos, .error, .seccion {
+	width: 100%;
+	background: #fff;
+	box-shadow: 0px 0px 5px rgba(0,0,0, .5);
+	margin-bottom: 30px;
+	padding: 10px;
+}
+
+.login{
+	background: #fff;
+	box-shadow: 0px 0px 5px rgba(0,0,0, .5);
+	margin-bottom: 30px;
+	padding: 10px;
+}
+
+
+/* Class nuevo para un nuevo producto */
+
+.nuevo {
+	display: inline-block;
+}
+
+.nuevo ul li {
+	display: inline-block;
+	line-height: 50px;
+}
+
+.nuevo ul li a {
+	color: #2980b9;
+	display: block;
+	padding: 0px 8px;
+	font-weight: bold;
+}
+
+.nuevo ul li a:hover {
+	color: #2e4053;
+	text-decoration: none;
+}
+
+/* --- Footer --- */
+footer {
+	background: #2980B9;
+	color: #fff;
+}
+
+footer .copyright {
+	text-align: center;
+	text-decoration: none;
+	font-size: 14px;
+	padding: 5px 0;
+	color:#fff;
+}
+
+footer .design {
+	text-align: center;
+	text-decoration: none;
+	font-size: 12px;
+	padding: 0 0;
+	color:#fff;
 }
