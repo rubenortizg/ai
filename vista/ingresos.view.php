@@ -21,17 +21,17 @@
     <div class="recibos">
       <p>Recibos de Ingreso</p>
       <br>
-      <table>
-        <tr>
+      <table class="table table-bordered table-hover table-sm table-responsive">
+        <thead class="bg-primary text-white">
           <th>Ingreso #</th>
           <th>Recibido de</th>
           <th>Concepto</th>
           <th>Valor</th>
           <th>Fecha de Ingreso</th>
-        </tr>
+        </thead >
         <?php foreach ($ingresos as $ingreso): ?>
         <tr>
-          <td><a href="ingreso.php?id=<?php echo $ingreso['nrecibo']; ?>"><?php echo $ingreso['nrecibo']; ?></a></td>
+          <td><a href="ingreso.php?id=<?php echo $ingreso['ningreso']; ?>"><?php echo $ingreso['ningreso']; ?></a></td>
           <td> <?php echo $ingreso['pnombre'].' '.$ingreso['snombre'].' '.$ingreso['papellido'].' '.$ingreso['sapellido']; ?></td>
           <td> <?php echo $ingreso['concepto']; ?></td>
           <td> <?php echo '$ '.$ingreso['valorpago']; ?></td>

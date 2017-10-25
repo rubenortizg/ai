@@ -22,18 +22,18 @@
     <div class="inmuebles">
       <p>Inmuebles registrados</p>
       <br>
-      <table>
-        <tr>
+      <table class="table table-bordered table-hover table-sm table-responsive">
+        <thead class="bg-primary text-white">
           <th>Matricula</th>
           <th>Tipo</th>
           <th>Dirección</th>
           <th>Ciudad</th>
           <th>Propietario</th>
           <th>Valor Comercial</th>
-        </tr>
+        </thead>
       <?php foreach ($inmuebles as $inmueble): ?>
   <tr>
-          <td> <a href="inmueble.php?id=<?php echo $inmueble['matricula']; ?>"><?php echo $inmueble['matricula']; ?></a></td>
+          <td> <a href="inmueble.php?id=<?php echo $inmueble['id']; ?>"><?php echo $inmueble['matricula']; ?></a></td>
           <td> <?php echo $inmueble['tipo']; ?></td>
           <td> <?php echo $inmueble['direccion']; ?></td>
           <td> <?php echo $inmueble['ciudad']; ?></td>

@@ -1,92 +1,123 @@
 <?php require 'header.php'; ?>
 
-  <div class="contenedor">
+  <div class="container recibos">
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-8 col-lg-6">
+        <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+          <div class="row no-gutters">
+            <div class="col-10">
+              <img class="img-fluid float-left" width=90px src="imagenes/logo.png" alt="Logo Inmobiliaria">
+              <h4 class="text-center mt-3">Nuevo Recibo</h4>
+            </div>
+            <div class="col-2">
+              <nav class="float-right nuevo">
+                <ul>
+                  <li><a href="recibos.php"><i class="fa fa-reply fa-lg"></i></a></li>
+                </ul>
+              </nav>
+            </div>
+          </div>
 
-    <div class="derecha">
-      <nav class="nuevo">
-        <ul>
-          <li><a href="recibos.php"><i class="fa fa-reply fa-lg"></i></a></li>
-        </ul>
-      </nav>
+          <div class="form-group row mb-0">
+            <div class="col-12 col-md-6">
+              <h6 class="">Recibo No. <span class="enfasis"><?php echo $nrecibo; ?></span></h6>
+            </div>
+            <div class="col-12 col-md-2">
+              <label for="valorpago"><small>Valor $</small></label>
+            </div>
+            <div class="col-12 col-md-4">
+              <input class="form-control form-control-sm" type="text" id="valorpago" name="valorpago" value=""/>
+            </div>
+          </div>
+
+
+          <div class="form-group row mb-0">
+            <div class="col-12 col-md-6">
+              <label for="ciudad"><small>En la ciudad de</small></label>
+              <input class="form-control form-control-sm" type="text" id="ciudad" name="ciudad" value="Funza" readonly="readonly"/>
+            </div>
+            <div class="col-12 col-md-6">
+              <label for="fecha"><small>Fecha</small></label>
+              <input class="form-control form-control-sm" type="text" name="fecha" id="datepicker" readonly="readonly" size="10" />
+            </div>
+          </div>
+
+          <div class="form-group row mb-0">
+            <div class="col-12 col-md-11">
+              <label for="idarrendatario"><small>Recibi(mos) de</small></label>
+              <input class="form-control form-control-sm" type="text" id="idarrendatario" name="idarrendatario" readonly="readonly"/>
+              <input type="hidden" name="idarr" id="idarr">
+            </div>
+            <div class="col-12 col-sm-1 d-flex justify-content-center align-items-end">
+              <a class="form-control-sm" id="ClienteBtn" href="#" ><i class="fa fa-users fa-lg"></i></a>
+            </div>
+          </div>
+
+          <div class="form-group row mb-0">
+            <div class="col-12">
+              <label for="valorLetras"><small>La suma de</small></label>
+              <input class="form-control form-control-sm"type="text" id="valorLetras" name="valorLetras" readonly="readonly" />
+            </div>
+          </div>
+
+          <div class="form-group row mb-0">
+            <div class="col-12 col-md-6">
+              <label for="concepto"><small>Por concepto de</small></label>
+              <select class="form-control form-control-sm" name="concepto">
+                  <option selected value="Arrendamiento">Arrendamiento</option>
+                  <option value="Anticipo de S.">Anticipo Servicios</option>
+                  <option value="Comision Venta">Comisión Venta</option>
+              </select>
+            </div>
+            <div class="col-12 col-sm-6">
+              <label for="tipoinmueble"><small>del inmueble tipo</small></label>
+              <input class="form-control form-control-sm" type="text" id="tipoinmueble" name="tipoinmueble" readonly="readonly" />
+            </div>
+          </div>
+
+          <div class="form-group row mb-0">
+            <div class="col-12 col-md-11">
+              <label for="direccion"><small>Ubicado en la</small></label>
+              <input class="form-control form-control-sm" type="text" id="direccion" name="direccion" value="" readonly="readonly"/>
+              <input type="hidden" name="iddireccion" id="iddireccion">
+            </div>
+            <div class="col-12 col-sm-1 d-flex justify-content-center align-items-end">
+              <a class="form-control-sm" id="InmuebleBtn" href="#" ><i class="fa fa-building fa-lg"></i></a>
+            </div>
+          </div>
+
+          <div class="form-group row mb-0">
+            <div class="col-12 col-md-6">
+              <label for="iperiodo"><small>Correspondiente al periodo del</small></label>
+              <input class="form-control form-control-sm" type="text" name="iperiodo" id="iperiodo" readonly="readonly" size="10"/>
+            </div>
+            <div class="col-12 col-md-6">
+              <label for="fperiodo"><small>al</small></label>
+              <input class="form-control form-control-sm" type="text" name="fperiodo" id="fperiodo" readonly="readonly" size="10" />
+            </div>
+          </div>
+
+
+          <div class="form-group row mb-0">
+            <div class="col-12 col-md-8">
+              <div class="row">
+                <div class="col-12 text-right d-flex justify-content-center my-0">
+                  <h5><small><?php echo $usuario['upnombre'].' '.$usuario['usnombre'].' '.$usuario['upapellido'].' '.$usuario['usapellido']; ?></small></h5>
+                </div>
+                <div class="col-12 text-right d-flex justify-content-center my-0">
+                  <label for="idusuario"><h6><small>Firma autorizada y Sello</small></h6></label>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-md-4 d-flex align-items-start">
+              <button class=" form-control btn btn-primary" type="submit">Crear Recibo</button>
+            </div>
+          </div>
+
+        </form>
+      </div>
     </div>
-    <div class="recibo">
-      <table class="recibo">
-        <tr>
-          <td>
-            <div class="head">
-              <img class="logoRecibo" src="imagenes/g&g.jpg" alt="G&G Inmobiliaria">
-              <h2>Nuevo Comprobante de Pago</h2>
-            </div>
-            <form class="" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
-            <div class="contorno">
-              <div class="nrecibo">
-                <h2>Recibo # <span class="enfasis"><?php echo $nrecibo; ?></span></h2>
-              </div>
-              <div class="valor">
-                <label for="valorpago">Valor $</label>
-                <input type="text" id="valorpago" name="valorpago" value="" />
-              </div>
-            </div>
-
-            <div class="contenidoNuevo">
-              <div class="ciudad">
-                <label for="ciudad">En la ciudad de</label>
-                <input type="text" id="ciudad" name="ciudad" value="Funza" readonly="readonly" />
-              </div>
-              <div class="fecha">
-                <label for="fecha">, el día</label>
-                <input type="text" name="fecha" id="datepicker" readonly="readonly" size="10" />
-              </div>
-              <div class="arrendatario">
-                <label for="idarrendatario">Recibi(mos) de</label>
-                <input type="text" id="idarrendatario" name="idarrendatario" readonly="readonly"/>
-                <input type="hidden" name="idarr" id="idarr">
-                <a id="ClienteBtn" href="#" ><i class="fa fa-users fa-lg"></i></a>
-              </div>
-              <div class="valorLetras">
-                <label for="valorLetras">La suma de</label>
-                <input type="text" id="valorLetras" name="valorLetras" readonly="readonly" />
-              </div>
-              <div class="concepto">
-                <label for="concepto">Por concepto de</label>
-                <select name="concepto">
-                    <option selected value="Arrendamiento">Arrendamiento</option>
-                    <option value="Anticipo de S.">Anticipo Servicios</option>
-                </select>
-              </div>
-              <div class="inmueble">
-                <label for="tipoinmueble">del inmueble tipo</label>
-                <input type="text" id="tipoinmueble" name="tipoinmueble" readonly="readonly" />
-              </div>
-              <div class="direccion">
-                <label for="direccion">Ubicado en la</label>
-                <input type="text" id="direccion" name="direccion" value="" readonly="readonly"/>
-                <input type="hidden" name="iddireccion" id="iddireccion">
-                <a id="InmuebleBtn" href="#" ><i class="fa fa-building fa-lg"></i></a>
-              </div>
-              <div class="iperiodo">
-                <label for="iperiodo">Correspondiente al periodo del</label>
-                <input type="text" name="iperiodo" id="iperiodo" readonly="readonly" size="10"/>
-              </div>
-              <div class="fperiodo">
-                <label for="fperiodo">al</label>
-                <input type="text" name="fperiodo" id="fperiodo" readonly="readonly" size="10" />
-              </div>
-            </div>
-            <div class="firma">
-              <h2><?php echo $usuario['upnombre'].' '.$usuario['usnombre'].' '.$usuario['upapellido'].' '.$usuario['usapellido']; ?></h2>
-              <label for="idusuario"><p>Firma autorizada y Sello</p></label>
-            </div>
-            <div class="boton" id="boton">
-              <button type="submit">Crear recibo</button>
-            </div>
-          </form>
-        </td>
-      </tr>
-    </table>
-   </div>
- </div>
-
+  </div>
 
  <div id="ClienteModal" class="modal">
 
@@ -280,29 +311,19 @@ jQuery(function($){
   $.datepicker.setDefaults($.datepicker.regional['es']);
 });
 
-$(document).ready(function() {
-   $("#datepicker").datepicker({
-     changeMonth: true
-   });
-
+$('#datepicker').datepicker({
+    format: 'mm-dd-yyyy'
 });
 
-$(document).ready(function() {
-   $("#iperiodo").datepicker({
-     changeMonth: true
-   });
+$('#iperiodo').datepicker({
+    format: 'mm-dd-yyyy'
 });
 
-$(document).ready(function() {
-   $("#fperiodo").datepicker({
-     changeMonth: true
-   });
-
+$('#fperiodo').datepicker({
+    format: 'mm-dd-yyyy'
 });
 
-
-
- </script>
+</script>
 
 
 <?php require 'vista/footer.php' ?>

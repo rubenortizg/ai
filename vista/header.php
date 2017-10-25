@@ -6,6 +6,8 @@
 	 initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+	<link rel="stylesheet" href="<?php echo RUTA; ?>/css/bootstrap.min.css">
 	<link rel="stylesheet" href="<?php echo RUTA; ?>/css/estilos.css">
 
 	<link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -15,37 +17,61 @@
 	<title>Administrador Inmobiliario</title>
 </head>
 <body>
-	<header>
-		<div class="contenedor">
-			<div class="logo izquierda">
-				<p><a href="<?php echo RUTA; ?>/index.php"><i class="fa fa-home"></i> Administrador Inmobiliario</a></p>
-			</div>
 
-			<div class="derecha">
+				<nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-3">
+					<div class="container">
 
-			<?php if($pagina == 'administrar.php'): ?>
+						<a href="<?php echo RUTA; ?>/index.php" class="navbar-brand"><h6>Administrador<br>Inmobiliario</h6></a>
 
-		  <?php else: ?>
-				<form name="busqueda" class="buscar" action="<?php echo RUTA; ?>/buscar.php" method="get">
-					<input type="text" name="busqueda" placeholder="Buscar">
-					<button type="submit" class="icono fa fa-search"></button>
-				</form>
-		  <?php endif; ?>
+						<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Menu de Navegación">
+							<span class="navbar-toggler-icon"></span>
+						</button>
+
+						<div class="collapse navbar-collapse" id="navbar">
 
 
-				<nav class="menu">
-					<ul>
-						<li><a href="clientes.php">Clientes <i class="fa fa-users"></i></a></li>
-						<li><a href="inmuebles.php">Inmuebles <i class="fa fa-building"></i></a></li>
-						<li><a href="recibos.php">Recibos <i class="fa fa-credit-card"></i></a>
-							<ul>
-								<li><a href="ingresos.php">Ingresos<i class="fa fa-arrow-left"></i></a></li>
-								<li><a href="egresos.php">Egresos <i class="fa fa-arrow-right"></i></a></li>
+							<ul class="navbar-nav mr-auto">
+								<li class="nav-item">
+									<a href="clientes.php" class="nav-link active">Clientes <i class="fa fa-users"></i></a>
+								</li>
+								<li class="nav-item">
+									<a href="inmuebles.php" class="nav-link active">Inmuebles <i class="fa fa-building"></i></a>
+								</li>
+
+								<li class="nav-item dropdown">
+									<a href="#" class="nav-link dropdown-toggle active" id="submenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Recibos <i class="fa fa-credit-card"></i></a>
+									<div class="dropdown-menu" aria-labelledby="submenu">
+										<a href="recibos.php" class="dropdown-item">Recibos <i class="fa fa-credit-card"></i></a>
+										<a href="ingresos.php" class="dropdown-item">Ingresos<i class="fa fa-arrow-left"></i></a>
+										<a href="egresos.php" class="dropdown-item">Egresos <i class="fa fa-arrow-right"></i></a>
+									</div>
+								</li>
+
+								<li class="nav-item">
+									<a href="cerrar.php" class="nav-link active">Salir <i class="fa fa-power-off"></i></a>
+								</li>
+
 							</ul>
-						</li>
-						<li><a href="cerrar.php"><i class="fa fa-power-off fa-lg"></i></a></li>
-					</ul>
+
+								<form class="form-inline my-2 my-lg-0" action="<?php echo RUTA; ?>/buscar.php" name="busqueda" method="get">
+							<?php if($pagina == 'administrar.php'): ?>
+								<fieldset disabled>
+							<?php endif; ?>
+									<input type="text" name="busqueda" class="form-control form-control-sm mr-sm-2" placeholder="Buscar" aria-label="Buscar">
+									<button class="btn btn-primary form-control btn-sm my-sm-0 fa fa-search" type="submit" name="button"></button>
+							<?php if($pagina == 'administrar.php'): ?>
+								</fieldset>
+							<?php endif; ?>
+								</form>
+
+
+
+
+
+
+
+
+						</div>
+
+					</div>
 				</nav>
-			</div>
-		</div>
-	</header>

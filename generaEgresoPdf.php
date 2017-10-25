@@ -15,28 +15,28 @@ if (isset($_SESSION['usuario'])) {
   $id_egreso = id_requerido($_GET['id']);
 
   if (empty($id_egreso)) {
-    header('Location: ingresos.php');
+    header('Location: egresos.php');
   }
 
   $egreso = obtener_egreso_por_id($conexion, $id_egreso);
 
   if (!$egreso) {
-    header('Location: ingresos.php');
+    header('Location: egresos.php');
   }
 
   $egreso = $egreso[0];
 
   $valorLetras = new numeroALetras();
-  $valorLetras = $valorLetras->aLetras(0.9*$egreso['valorpago'],'COP');
+  $valorLetras = $valorLetras->aLetras($egreso['valorpago'],'COP');
 
   $pdf = new FPDF('L', 'mm', array(210,140));
   $pdf->AddPage();
 
-  $pdf->SetTitle('Egreso # ' . $egreso['nrecibo'] . ' - ' . $egreso['pnombre']. $egreso['papellido']);
+  $pdf->SetTitle('Egreso No ' . $egreso['negreso'] . ' - ' . $egreso['pnombre']. $egreso['papellido']);
 
   // Logo
-  $pdf->Image('imagenes/g&g.jpg',20,9,30,0,'JPG');
-  $pdf->Image('imagenes/g&g22.png',60,40,90,0,'PNG');
+  $pdf->Image('imagenes/logo.png',20,9,30,0,'PNG');
+  $pdf->Image('imagenes/logo22.png',60,40,90,0,'PNG');
   // Encabezado
   $pdf->SetFont('Arial','B',16);
   $pdf->Cell(45);
@@ -44,13 +44,13 @@ if (isset($_SESSION['usuario'])) {
   // Contorno
   $pdf->SetFont('Arial','',14);
   $pdf->Cell(8);
-  $pdf->Cell(21,9, 'Egreso #', 0, 0, 'L');
+  $pdf->Cell(28,9, 'Egreso No. ', 0, 0, 'L');
   $pdf->SetFont('Arial','IU',14);
-  $pdf->Cell(69,9, $egreso['nrecibo'], 0, 0, 'L');
+  $pdf->Cell(62,9, $egreso['negreso'], 0, 0, 'L');
   $pdf->SetFont('Arial','',14);
   $pdf->Cell(50,9, 'Valor: $', 0, 0, 'R');
   $pdf->SetFont('Arial','IU',14);
-  $pdf->Cell(40,9, 0.9*$egreso['valorpago'], 0, 1, 'L');
+  $pdf->Cell(40,9, $egreso['valorpago'], 0, 1, 'L');
   // Contenido
   $pdf->SetFont('Arial','',12);
   $pdf->Cell(8);
@@ -94,7 +94,7 @@ if (isset($_SESSION['usuario'])) {
   $pdf->Cell(180,1, 'Firma autorizada y Sello', 0, 0, 'C');
 
   $pdf->SetDisplayMode('real');
-  $pdf->Output('I', 'Comprobante # ' . $egreso['nrecibo'] . ' - ' . $egreso['pnombre'].' '.$egreso['papellido']);
+  $pdf->Output('I', 'Comprobante No ' . $egreso['negreso'] . ' - ' . $egreso['pnombre'].' '.$egreso['papellido']);
 
   $pagina = basename(__FILE__ );
   setcookie("pagina_anterior", $pagina, time()+60);

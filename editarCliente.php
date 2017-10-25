@@ -17,9 +17,10 @@ if (isset($_SESSION['usuario'])) {
     $usuario = obtener_usuario_por_id($conexion,$login);
     $usuario = $usuario[0];
 
-    $ncliente = ($_POST['ncliente']);
+    $id = ($_POST['idcliente']);
     $tipoid = $_POST['tipoid'];
     $identificacion = (int)limpiarDatos($_POST['identificacion']);
+    $identificacion_ori = (int)limpiarDatos($_POST['identificacion_ori']);
     $pnombre = limpiarDatos($_POST['pnombre']);
     $snombre = limpiarDatos($_POST['snombre']);
     $papellido = limpiarDatos($_POST['papellido']);
@@ -34,13 +35,18 @@ if (isset($_SESSION['usuario'])) {
     $notas = limpiarDatos($_POST['notas']);
     $idusuario = (int)$usuario['id'];
 
+
     $errores = '';
     $enviado = '';
 
     $clientExiste = obtener_cliente_por_identificacion($conexion,$identificacion);
 
-    if ($clientExiste) {
-      $errores .= 'La identificacion del cliente ingresada existe en la base de datos, verifique el valor. <br />';
+    $clientExiste = $clientExiste[0];
+
+    $clientExiste = $clientExiste['identificacion'];
+
+    if ($clientExiste != null && $clientExiste != $identificacion_ori) {
+      $errores .= 'La identificacion del cliente a actualizar existe en la base de datos para otro cliente, verifique el valor. <br />';
     } else {
       if (empty($identificacion)) {
         $errores .= 'Debe ingresar un numero de identificación. <br />';
@@ -65,12 +71,11 @@ if (isset($_SESSION['usuario'])) {
 
     if (!$errores) {
 
-      if ($clientExiste == false) {
-        $sql = 'INSERT INTO clientes (id, identificacion, tipoid, pnombre, snombre, papellido, sapellido, direccion, telfijo, celular, ciudad, tipo, banco, tcuenta, ncuenta, notas, idusuario)
-        VALUES (null, :identificacion, :tipoid, :pnombre, :snombre, :papellido, :sapellido, :direccion, :telfijo, :celular, :ciudad, null, :banco, :tcuenta, :ncuenta, :notas, :idusuario)';
+      $sql = 'UPDATE clientes SET identificacion = :identificacion, tipoid = :tipoid, pnombre = :pnombre, snombre = :snombre, papellido = :papellido, sapellido = :sapellido, direccion = :direccion, telfijo = :telfijo, celular = :celular, ciudad = :ciudad, banco = :banco, tcuenta = :tcuenta, ncuenta = :ncuenta, notas = :notas, idusuario = :idusuario WHERE id = :id';
 
-        $sentencia = $conexion->prepare($sql);
-        $sentencia->execute(array(
+      $sentencia = $conexion->prepare($sql);
+      $sentencia->execute(array(
+        ':id' => $id,
         ':identificacion' => $identificacion,
         ':tipoid' => $tipoid,
         ':pnombre' => $pnombre,
@@ -86,31 +91,38 @@ if (isset($_SESSION['usuario'])) {
         ':ncuenta' => $ncuenta,
         ':notas' => $notas,
         ':idusuario' => $idusuario));
-      }
 
-      header('Location: ' . RUTA . '/cliente.php?id='.$identificacion);
+
+        header('Location: ' . RUTA . '/cliente.php?id='.$identificacion);
     }
 
   }
 
   else {
-    $sql = 'SELECT MAX(id) AS id FROM clientes';
+    $id_cliente = id_requerido($_GET['id']);
 
-    $resultado = $conexion->query($sql);
-  	$resultado = $resultado->fetch();
-    $resultado = (int)$resultado[0];
-    $ncliente = $resultado + 1;
+    if (empty($id_cliente)) {
+      header('Location: clientes.php');
+    }
+
+    $cliente = obtener_cliente_por_id($conexion, $id_cliente);
+
+    if (!$cliente) {
+      header('Location: clientes.php');
+    }
+
+    $cliente = $cliente[0];
 
     $login = $_SESSION['usuario'];
     $usuario = obtener_usuario_por_id($conexion,$login);
     $usuario = $usuario[0];
-    $enviado = '';
+
   }
 
   $pagina = basename(__FILE__ );
   setcookie("pagina_anterior", $pagina, time()+60);
 
-  require 'vista/nuevoCliente.view.php';
+  require 'vista/editarCliente.view.php';
 
 } else {
   header('Location: index.php');

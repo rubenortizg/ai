@@ -9,21 +9,22 @@ if (isset($_SESSION['usuario'])) {
     header('Location: error.php');
   }
 
-
   $acentos = charset($conexion);
-  $clientes = obtener_clientes( $admin_config['rows'], $conexion);
 
-/*
+  $id = limpiarDatos($_GET['id']);
 
-  if (!$clientes) {
-    header('Location: clientes.php');
+  if (!$id) {
+  	header('Location: ' . RUTA . '/inmuebles.php');
   }
 
-*/
+  $statement = $conexion->prepare('DELETE FROM inmuebles WHERE id = :id');
+  $statement->execute(array('id' => $id));
+
+  header('Location: ' . RUTA . '/inmuebles.php');
+
+
   $pagina = basename(__FILE__ );
   setcookie("pagina_anterior", $pagina, time()+60);
-  require 'vista/clientes.view.php';
-
 
 } else {
   header('Location: index.php');

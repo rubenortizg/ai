@@ -26,7 +26,7 @@ if (isset($_SESSION['usuario'])) {
   $egreso = $egreso[0];
 
   $valorLetras = new numeroALetras();
-  $valorLetras = $valorLetras->aLetras(0.9*$egreso['valorpago'],'COP');
+  $valorLetras = $valorLetras->aLetras($egreso['valorpago'],'COP');
 
   $pagina = basename(__FILE__ );
   setcookie("pagina_anterior", $pagina, time()+60);

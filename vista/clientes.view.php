@@ -22,8 +22,8 @@
     <div class="clientes">
       <p>Clientes registrados</p>
       <br>
-      <table>
-        <tr>
+      <table class="table table-bordered table-hover table-sm table-responsive">
+        <thead class="bg-primary text-white">
           <th>Identificacion</th>
           <th>Nombres</th>
           <th>Apellidos</th>
@@ -31,7 +31,7 @@
           <th>Telefono Fijo</th>
           <th>Celular</th>
           <th>Ciudad</th>
-        </tr>
+        </thead>
       <?php foreach ($clientes as $cliente): ?>
   <tr>
           <td> <a href="cliente.php?id=<?php echo $cliente['identificacion']; ?>"><?php echo $cliente['identificacion']; ?></a></td>

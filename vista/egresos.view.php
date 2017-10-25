@@ -21,20 +21,20 @@
     <div class="recibos">
       <p>Recibos de Egreso</p>
       <br>
-      <table>
-        <tr>
+      <table class="table table-bordered table-hover table-sm table-responsive">
+        <thead class="bg-primary text-white">
           <th>Egreso #</th>
           <th>Pagado a</th>
           <th>Concepto</th>
           <th>Valor</th>
           <th>Fecha de Egreso</th>
-        </tr>
+        </thead>
         <?php foreach ($egresos as $egreso): ?>
         <tr>
-          <td><a href="egreso.php?id=<?php echo $egreso['nrecibo']; ?>"><?php echo $egreso['nrecibo']; ?></a></td>
+          <td><a href="egreso.php?id=<?php echo $egreso['negreso']; ?>"><?php echo $egreso['negreso']; ?></a></td>
           <td> <?php echo $egreso['pnombre'].' '.$egreso['snombre'].' '.$egreso['papellido'].' '.$egreso['sapellido']; ?></td>
           <td> <?php echo $egreso['concepto']; ?></td>
-          <td> <?php $valorEgreso = 0.9*$egreso['valorpago']; echo '$ '.$valorEgreso; ?></td>
+          <td> <?php $valorEgreso = $egreso['valorpago']; echo '$ '.$valorEgreso; ?></td>
           <td> <?php echo fecha($egreso['fecha']) ; ?></td>
         </tr>
         <?php endforeach; ?></table>

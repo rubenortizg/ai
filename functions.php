@@ -60,14 +60,26 @@ function obtener_recibos($results, $conexion){
 }
 
 
+function obtener_ingresos($results, $conexion){
+  $inicio = (pagina_actual() > 1) ? pagina_actual()*$results - $results : 0;
+  $sql = "SELECT SQL_CALC_FOUND_ROWS * FROM ingresos
+          INNER JOIN clientes ON ingresos.idarrendatario = clientes.id
+          INNER JOIN inmuebles ON ingresos.idinmueble = inmuebles.id
+          ORDER BY ningreso
+          LIMIT $inicio,$results";
+  $sentencia = $conexion->prepare($sql);
+  $sentencia->execute();
+  return $sentencia->fetchAll();
+}
+
 function obtener_egresos($results, $conexion){
   $inicio = (pagina_actual() > 1) ? pagina_actual()*$results - $results : 0;
-  $sql = "SELECT SQL_CALC_FOUND_ROWS inmuebles.id, inmuebles.idpropietario, recibos.nrecibo,
-          recibos.valorpago, recibos.fecha, clientes.pnombre, clientes.snombre, clientes.papellido,
-          clientes.sapellido, recibos.concepto FROM inmuebles
+  $sql = "SELECT SQL_CALC_FOUND_ROWS inmuebles.id, inmuebles.idpropietario, egresos.negreso,
+          egresos.valorpago, egresos.fecha, clientes.pnombre, clientes.snombre, clientes.papellido,
+          clientes.sapellido, egresos.concepto FROM inmuebles
           INNER JOIN clientes ON inmuebles.idpropietario = clientes.id
-          INNER JOIN recibos ON  inmuebles.id = recibos.idinmueble
-          ORDER BY nrecibo
+          INNER JOIN egresos ON  inmuebles.id = egresos.idinmueble
+          ORDER BY negreso
           LIMIT $inicio,$results";
   $sentencia = $conexion->prepare($sql);
   $sentencia->execute();
@@ -84,7 +96,7 @@ function numero_paginas($rows, $conexion){
 }
 
 function id_requerido($id){
-	return (int)limpiarDatos($id);
+	return limpiarDatos($id);
 }
 
 
@@ -104,6 +116,41 @@ function obtener_recibo_por_id($conexion, $id){
 	$resultado = $resultado->fetchAll();
 	return ($resultado) ? $resultado : false;
 }
+
+function obtener_ingreso_por_id($conexion, $id){
+
+  $sql = "SELECT ingresos.ningreso, ingresos.valorpago, ingresos.ciudad, ingresos.fecha,
+                 clientes.pnombre, clientes.snombre, clientes.papellido, clientes.sapellido,
+                 ingresos.concepto, inmuebles.tipo, inmuebles.direccion, inmuebles.matricula, ingresos.iperiodo,
+                 ingresos.fperiodo, usuarios.upnombre, usuarios.usnombre, usuarios.upapellido,
+                 usuarios.usapellido FROM ingresos
+          INNER JOIN clientes ON ingresos.idarrendatario = clientes.id
+          INNER JOIN inmuebles ON ingresos.idinmueble = inmuebles.id
+          INNER JOIN usuarios ON ingresos.idusuario = usuarios.id
+          WHERE ingresos.ningreso = $id
+          LIMIT 1";
+	$resultado = $conexion->query($sql);
+	$resultado = $resultado->fetchAll();
+	return ($resultado) ? $resultado : false;
+}
+
+function obtener_egreso_por_id($conexion, $id){
+
+  $sql = "SELECT egresos.negreso, egresos.valorpago, egresos.ciudad, egresos.fecha,
+                 clientes.pnombre, clientes.snombre, clientes.papellido, clientes.sapellido,
+                 egresos.concepto, inmuebles.tipo, inmuebles.direccion, inmuebles.matricula, egresos.iperiodo,
+                 egresos.fperiodo, usuarios.upnombre, usuarios.usnombre, usuarios.upapellido,
+                 usuarios.usapellido, inmuebles.idpropietario, inmuebles.id FROM inmuebles
+          INNER JOIN clientes ON inmuebles.idpropietario = clientes.id
+          INNER JOIN egresos ON inmuebles.id = egresos.idinmueble
+          INNER JOIN usuarios ON inmuebles.idusuario = usuarios.id
+          WHERE egresos.negreso = $id
+          LIMIT 1";
+	$resultado = $conexion->query($sql);
+	$resultado = $resultado->fetchAll();
+	return ($resultado) ? $resultado : false;
+}
+
 
 function obtener_recibo_x_id($conexion, $id){
 
@@ -126,8 +173,9 @@ function obtener_cliente_por_id($conexion, $id){
 
   $sql = "SELECT clientes.id, clientes.tipoid, clientes.identificacion, clientes.direccion,
                  clientes.pnombre, clientes.snombre, clientes.papellido, clientes.sapellido,
-                 clientes.ciudad, clientes.telfijo, clientes.celular, clientes.notas,
-                 usuarios.upnombre, usuarios.usnombre, usuarios.upapellido, usuarios.usapellido FROM clientes
+                 clientes.ciudad, clientes.telfijo, clientes.celular, clientes.banco,
+                 clientes.tcuenta, clientes.ncuenta, clientes.notas, usuarios.upnombre,
+                 usuarios.usnombre, usuarios.upapellido, usuarios.usapellido FROM clientes
           INNER JOIN usuarios ON clientes.idusuario = usuarios.id WHERE clientes.identificacion = $id LIMIT 1";
 	$resultado = $conexion->query($sql);
 	$resultado = $resultado->fetchAll();
@@ -154,7 +202,7 @@ function obtener_inmueble_por_id($conexion, $id){
                  clientes.pnombre, clientes.snombre, clientes.papellido, clientes.sapellido,
                  usuarios.upnombre, usuarios.usnombre, usuarios.upapellido, usuarios.usapellido FROM inmuebles
           INNER JOIN clientes ON inmuebles.idpropietario = clientes.id
-          INNER JOIN usuarios ON inmuebles.idusuario = usuarios.id WHERE inmuebles.matricula = $id LIMIT 1";
+          INNER JOIN usuarios ON inmuebles.idusuario = usuarios.id WHERE inmuebles.id = $id LIMIT 1";
 	$resultado = $conexion->query($sql);
 	$resultado = $resultado->fetchAll();
 	return ($resultado) ? $resultado : false;
@@ -173,22 +221,6 @@ function obtener_inmueble_x_id($conexion, $id){
 	return ($resultado) ? $resultado : false;
 }
 
-function obtener_egreso_por_id($conexion, $id){
-
-  $sql = "SELECT recibos.nrecibo, recibos.valorpago, recibos.ciudad, recibos.fecha,
-                 clientes.pnombre, clientes.snombre, clientes.papellido, clientes.sapellido,
-                 recibos.concepto, inmuebles.tipo, inmuebles.direccion, inmuebles.matricula, recibos.iperiodo,
-                 recibos.fperiodo, usuarios.upnombre, usuarios.usnombre, usuarios.upapellido,
-                 usuarios.usapellido, inmuebles.idpropietario, inmuebles.id FROM inmuebles
-          INNER JOIN clientes ON inmuebles.idpropietario = clientes.id
-          INNER JOIN recibos ON inmuebles.id = recibos.idinmueble
-          INNER JOIN usuarios ON inmuebles.idusuario = usuarios.id
-          WHERE recibos.nrecibo = $id
-          LIMIT 1";
-	$resultado = $conexion->query($sql);
-	$resultado = $resultado->fetchAll();
-	return ($resultado) ? $resultado : false;
-}
 
 function obtener_cliente_por_identificacion($conexion, $identificacion){
 

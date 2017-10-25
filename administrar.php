@@ -11,10 +11,12 @@ if (isset($_SESSION['usuario'])) {
 
   $acentos = charset($conexion);
 
+
   $sqlcliente = 'SELECT MAX(id) AS id FROM clientes';
   $cliente = $conexion->query($sqlcliente);
   $cliente = $cliente->fetch();
   $cliente = (int)$cliente[0];
+
 
   $clientes = obtener_cliente_x_id($conexion, $cliente);
 

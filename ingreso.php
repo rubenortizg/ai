@@ -17,14 +17,14 @@ if (isset($_SESSION['usuario'])) {
     header('Location: ingresos.php');
   }
 
-  $ingreso = obtener_recibo_por_id($conexion, $id_ingreso);
+  $ingreso = obtener_ingreso_por_id($conexion, $id_ingreso);
 
   if (!$ingreso) {
     header('Location: ingresos.php');
   }
 
   $ingreso = $ingreso[0];
-  
+
   $valorLetras = new numeroALetras();
   $valorLetras = $valorLetras->aLetras($ingreso['valorpago'],'COP');
 

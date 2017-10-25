@@ -1,4 +1,4 @@
-<?php require 'header.php'; ?>
+  <?php require 'header.php'; ?>
 
     <div class="container clientes">
       <div class="row justify-content-center">
@@ -7,12 +7,12 @@
             <div class="row no-gutters">
               <div class="col-10">
                 <img class="img-fluid float-left" width=90px src="imagenes/logo.png" alt="Logo Inmobiliaria">
-                <h4 class="text-center mt-3">Nuevo Cliente</h4>
+                <h4 class="text-center mt-3">Editar Cliente</h4>
               </div>
               <div class="col-2">
                 <nav class="float-right nuevo">
                   <ul>
-                    <li><a href="clientes.php"><i class="fa fa-reply fa-lg"></i></a></li>
+                    <li><a href="cliente.php?id=<?php if(isset($cliente['identificacion'])) { echo $cliente['identificacion']; } elseif (!$enviado && isset($identificacion_ori)) { echo $identificacion_ori;} ?>"><i class="fa fa-reply fa-lg"></i></a></li>
                   </ul>
                 </nav>
               </div>
@@ -33,18 +33,17 @@
 
             <?php endif ?>
 
-
             <div class="form-group mb-0">
-              <h6>Cliente ID No. <span class="enfasis"><?php echo $ncliente; ?></span></h6>
-              <input type="hidden" name="ncliente" value="<?php echo $ncliente; ?>">
+              <h6>Cliente ID No. <span class="enfasis"><?php if(isset($cliente['id'])) { echo $cliente['id']; } elseif (!$enviado && isset($id)) { echo $id;} ?></span></h6>
+              <input type="hidden" name="idcliente" value="<?php if(isset($cliente['id'])) { echo $cliente['id']; } elseif (!$enviado && isset($id)) { echo $id;} ?>">
             </div>
 
             <div class="form-group row my-0">
               <div class="col-12 col-md-6">
                 <label for="tipoid"><small>Tipo de documento</small></label>
                 <select class="form-control form-control-sm" name="tipoid">
-                  <option selected value="Cedula de Ciudadanía">Cedula de Ciudadanía </option>
-                  <option value="Cedula de Extranjeria">Cedula de Extranjeria </option>
+                  <option selected value="Cedula de Ciudadanía">Cedula de Ciudadanía</option>
+                  <option value="Cedula de Extranjeria">Cedula de Extranjeria</option>
                   <option value="NIT">NIT</option>
                   <option value="Tarjeta de Identidad">Tarjeta de Identidad</option>
                   <option value="Registro Civil">Registro Civil</option>
@@ -53,30 +52,27 @@
 
               <div class="col-12 col-md-6">
                 <label for="identificacion"><small>Numero</small></label>
-                <input class="form-control form-control-sm" type="text" id="identificacion" name="identificacion" value="<?php
-                if(!$enviado && isset($identificacion)  && ($identificacion == '0')) {echo '';}
-                elseif (!$enviado && isset($identificacion)) { echo $identificacion;}
-                ?>"/>
-                <input type="hidden" name="idcliente" id="idcliente">
+                <input class="form-control form-control-sm" type="text" id="identificacion" name="identificacion" value="<?php if(isset($cliente['identificacion'])) { echo $cliente['identificacion']; } elseif (!$enviado && isset($identificacion)) { echo $identificacion;} ?>"/>
+                <input type="hidden" name="identificacion_ori" value="<?php if(isset($cliente['identificacion'])) { echo $cliente['identificacion']; } elseif (!$enviado && isset($identificacion_ori)) { echo $identificacion_ori;} ?>">
               </div>
             </div>
 
             <div class="form-group row  my-0">
               <div class="col-12 col-md-3">
                 <label for="pnombre"><small>Primer Nombre</small></label>
-                <input class="form-control form-control-sm" type="text" id="pnombre" name="pnombre" value="<?php if(!$enviado && isset($pnombre)) echo $pnombre; ?>"/>
+                <input class="form-control form-control-sm" type="text" id="pnombre" name="pnombre"  value="<?php if(isset($cliente['pnombre'])) { echo $cliente['pnombre']; } elseif (!$enviado && isset($pnombre)) { echo $pnombre;} ?>"/>
               </div>
               <div class="col-12 col-md-3">
                 <label for="snombre"><small>Segundo Nombre</small></label>
-                <input class="form-control form-control-sm" type="text" id="snombre" name="snombre" value="<?php if(!$enviado && isset($snombre)) echo $snombre; ?>"/>
+                <input class="form-control form-control-sm" type="text" id="snombre" name="snombre" value="<?php if(isset($cliente['snombre'])) { echo $cliente['snombre']; } elseif (!$enviado && isset($snombre)) { echo $snombre;} ?>"/>
               </div>
               <div class="col-12 col-md-3">
                 <label for="papellido"><small>Primer Apellido</small></label>
-                <input class="form-control form-control-sm" type="text" id="papellido" name="papellido" value="<?php if(!$enviado && isset($papellido)) echo $papellido; ?>"/>
+                <input class="form-control form-control-sm" type="text" id="papellido" name="papellido" value="<?php if(isset($cliente['papellido'])) { echo $cliente['papellido']; } elseif (!$enviado && isset($papellido)) { echo $papellido;} ?>"/>
               </div>
               <div class="col-12 col-md-3">
                 <label for="sapellido"><small>Segundo apellido</small></label>
-                <input class="form-control form-control-sm" type="text" id="sapellido" name="sapellido" value="<?php if(!$enviado && isset($sapellido)) echo $sapellido; ?>"/>
+                <input class="form-control form-control-sm" type="text" id="sapellido" name="sapellido" value="<?php if(isset($cliente['sapellido'])) { echo $cliente['sapellido']; } elseif (!$enviado && isset($sapellido)) { echo $sapellido;} ?>"/>
               </div>
 
             </div>
@@ -84,19 +80,19 @@
             <div class="form-group row  my-0">
               <div class="col-12 col-md-5">
                 <label for="direccion"><small>Direccion</small></label>
-                <input class="form-control form-control-sm" type="text" id="direccion" name="direccion" value="<?php if(!$enviado && isset($direccion)) echo $direccion; ?>"/>
+                <input class="form-control form-control-sm" type="text" id="direccion" name="direccion" value="<?php if(isset($cliente['direccion'])) { echo $cliente['direccion']; } elseif (!$enviado && isset($direccion)) { echo $direccion;} ?>"/>
               </div>
               <div class="col-12 col-md-3">
                 <label for="ciudad"><small>Ciudad</small></label>
-                <input class="form-control form-control-sm" type="text" id="ciudad" name="ciudad" value="<?php if(!$enviado && isset($ciudad)) echo $ciudad; ?>" />
+                <input class="form-control form-control-sm" type="text" id="ciudad" name="ciudad" value="<?php if(isset($cliente['ciudad'])) { echo $cliente['ciudad']; } elseif (!$enviado && isset($ciudad)) { echo $ciudad;} ?>"/>
               </div>
               <div class="col-12 col-md-2">
                 <label for="telfijo"><small>Fijo</small></label>
-                <input class="form-control form-control-sm pd-0" type="text" id="telfijo" name="telfijo" value="<?php if(!$enviado && isset($telfijo)) echo $telfijo; ?>"/>
+                <input class="form-control form-control-sm pd-0" type="text" id="telfijo" name="telfijo" value="<?php if(isset($cliente['telfijo'])) { echo $cliente['telfijo']; } elseif (!$enviado && isset($telfijo)) { echo $telfijo;} ?>"/>
               </div>
               <div class="col-12 col-md-2">
                 <label for="celular"><small>Celular</small></label>
-                <input class="form-control form-control-sm my-0" type="text" id="celular" name="celular" value="<?php if(!$enviado && isset($celular)) echo $celular; ?>"/>
+                <input class="form-control form-control-sm my-0" type="text" id="celular" name="celular" value="<?php if(isset($cliente['celular'])) { echo $cliente['celular']; } elseif (!$enviado && isset($celular)) { echo $celular;} ?>"/>
               </div>
             </div>
 
@@ -131,7 +127,7 @@
               </div>
               <div class="col-12 col-md-4">
                 <label for="ncuenta"><small>No. de Cuenta</small></label>
-                <input class="form-control form-control-sm my-0" type="text" id="ncuenta" name="ncuenta" value="<?php if(!$enviado && isset($ncuenta)) echo $ncuenta; ?>"/>
+                <input class="form-control form-control-sm my-0" type="text" id="ncuenta" name="ncuenta" value="<?php if(isset($cliente['ncuenta'])) { echo $cliente['ncuenta']; } elseif (!$enviado && isset($ncuenta)) { echo $ncuenta;} ?>" />
               </div>
 
             </div>
@@ -139,10 +135,10 @@
             <div class="form-group row  my-0">
               <div class="col-12 col-md-8">
                 <label for="notas"><small>Notas Adicionales</small></label>
-                <textarea class="form-control form-control-sm" id="notas" name="notas" /><?php if(!$enviado && isset($notas)) echo $notas; ?></textarea>
+                <textarea class="form-control form-control-sm" id="notas" name="notas" /><?php if(isset($cliente['notas'])) { echo $cliente['notas']; } elseif (!$enviado && isset($notas)) { echo $notas;} ?></textarea>
               </div>
               <div class="col-12 col-md-4 d-flex align-items-end">
-                <button class=" form-control btn btn-primary" name="submit" type="submit">Crear cliente</button>
+                <button class=" form-control btn btn-primary" type="submit">Modificar cliente</button>
               </div>
             </div>
 
@@ -155,73 +151,4 @@
       </div>
     </div>
 
- <div id="ClienteModal" class="modal">
-
-   <div class="modal-content">
-     <div class="modal-header">
-       <span id="close" class="close">&times;</span>
-       <h3>Clientes Registrados</h3>
-     </div>
-     <div class="modal-body">
-       <br>
-       <table>
-         <tr>
-           <td><h2>La identificacion del cliente ingresada existe en la base de datos, verifique el valor</h2></td>
-         </tr>
-     </table>
-     <br/>
-     </div>
-     <div class="modal-footer">
-     </div>
-   </div>
- </div>
-
-
-
-<script>
-
-
-// Get the modal
-var modal = document.getElementById('ClienteModal');
-
-// Get the <span> element that closes the modal
-var span = document.getElementById("close");
-
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-    modal.style.display = "none";
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
-
-
-$(document).ready(iniciar);
-
-function iniciar(){
-  $("#identificacion").focusout(validaIdentificacion);
-}
-
-
-function validaIdentificacion(){
-  var x = $(this).val();
-  $.ajax({
-  url: "valorCliente.php",
-  type: "post",
-  data: "identificacion="+x,
-  success: function(data){
-    $("#idcliente").val(data);
-    if (document.getElementById("idcliente").value == "Cliente Existe") {
-      // modal.style.display = "block";
-      // document.getElementById("identificacion").value = null;
-    }
-  }
-  });
-}
-
- </script>
 <?php require 'vista/footer.php' ?>

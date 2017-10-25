@@ -7,20 +7,20 @@
           <div class="row no-gutters">
             <div class="col-10">
               <img class="img-fluid float-left" width=90px src="imagenes/logo.png" alt="Logo Inmobiliaria">
-              <h4 class="text-center mt-3">Nuevo Inmueble</h4>
+              <h4 class="text-center mt-3">Editar Inmueble</h4>
             </div>
             <div class="col-2">
               <nav class="float-right nuevo">
                 <ul>
-                  <li><a href="inmuebles.php"><i class="fa fa-reply fa-lg"></i></a></li>
+                  <li><a href="inmueble.php?id=<?php echo $inmueble['id'];?>"><i class="fa fa-reply fa-lg"></i></a></li>
                 </ul>
               </nav>
             </div>
           </div>
 
           <div class="form-group mb-0">
-            <h6>Inmueble ID No. <span class="enfasis"><?php echo $ninmueble; ?></span></h6>
-            <input type="hidden" name="idinmueble" value="<?php echo $ninmueble; ?>">
+            <h6>Inmueble ID No. <span class="enfasis"><?php echo $inmueble['id']; ?></span></h6>
+            <input type="hidden" name="idinmueble" value="<?php echo $inmueble['id']; ?>">
           </div>
 
           <div class="form-group row my-0">
@@ -36,7 +36,7 @@
             </div>
             <div class="col-12 col-md-6">
               <label for="matricula"><small>No. Matricula</small></label>
-              <input class="form-control form-control-sm" type="text" id="matricula" name="matricula"/>
+              <input class="form-control form-control-sm" type="text" id="matricula" name="matricula" value="<?php echo $inmueble['matricula']; ?>"/>
               <input type="hidden" name="idmatricula" id="idmatricula">
             </div>
           </div>
@@ -44,7 +44,7 @@
           <div class="form-group row my-0">
             <div class="col-12 col-sm-11">
               <label for="idpropietario"><small>Propietario</small></label>
-              <input class="form-control form-control-sm" type="text" id="idpropietario" name="idpropietario" readonly="readonly"/>
+              <input class="form-control form-control-sm" type="text" id="idpropietario" name="idpropietario" readonly="readonly" value="<?php echo $inmueble['pnombre'].' '.$inmueble['snombre'].' '.$inmueble['papellido'].' '.$inmueble['sapellido']; ?>"/>
               <input type="hidden" name="idprr" id="idprr">
             </div>
             <div class="col-12 col-sm-1 d-flex justify-content-center align-items-end">
@@ -55,23 +55,23 @@
           <div class="form-group row my-0">
             <div class="col-12 col-md-8">
               <label for="direccion"><small>Direccion</small></label>
-              <input class="form-control form-control-sm" type="text" id="direccion" name="direccion" />
+              <input class="form-control form-control-sm" type="text" id="direccion" name="direccion" value="<?php echo $inmueble['direccion']; ?>" />
             </div>
             <div class="col-12 col-md-4">
               <label for="ciudad"><small>Ciudad</small></label>
-              <input class="form-control form-control-sm" type="text" id="ciudad" name="ciudad" />
+              <input class="form-control form-control-sm" type="text" id="ciudad" name="ciudad" value="<?php echo $inmueble['ciudad']; ?>"/>
               <label for="valor"><small>Valor</small></label>
-              <input class="form-control form-control-sm" type="text" id="valor" name="valor" />
+              <input class="form-control form-control-sm" type="text" id="valor" name="valor" value="<?php echo $inmueble['valor']; ?>"/>
             </div>
           </div>
 
           <div class="form-group row my-0">
             <div class="col-12 col-md-8">
               <label for="descripcion"><small>Descripción del inmueble</small></label>
-              <textarea class="form-control form-control-sm" id="descripcion" name="descripcion" /></textarea>
+              <textarea class="form-control form-control-sm" id="descripcion" name="descripcion" /><?php echo $inmueble['descripcion']; ?></textarea>
             </div>
             <div class="col-12 col-md-4 d-flex align-items-end">
-              <button class=" form-control btn btn-primary" type="submit">Crear Inmueble</button>
+              <button class=" form-control btn btn-primary" type="submit">Modificar Inmueble</button>
             </div>
           </div>
 
@@ -130,40 +130,16 @@
 
  </div>
 
-
- <div id="InmuebleModal" class="modal">
-
-   <div class="modal-content">
-     <div class="modal-header">
-       <span class="closeInmueble">&times;</span>
-       <h3>Inmuebles Registrados</h3>
-     </div>
-     <div class="modal-body">
-       <br>
-       <table>
-         <tr>
-           <td><h2>La matricula ingresada existe en la base de datos, verifique el valor</h2></td>
-         </tr>
-     </table>
-     <br/>
-     </div>
-     <div class="modal-footer">
-     </div>
-   </div>
- </div>
-
-
  <script>
+
  // Get the modal
  var modal = document.getElementById('ClienteModal');
- var inmuebleModal = document.getElementById('InmuebleModal');
 
  // Get the button that opens the modal
  var btn = document.getElementById("ClienteBtn");
 
  // Get the <span> element that closes the modal
  var span = document.getElementsByClassName("close")[0];
- var spanInmueble = document.getElementsByClassName("closeInmueble")[0];
 
  // When the user clicks the button, open the modal
  btn.onclick = function() {
@@ -175,20 +151,11 @@
      modal.style.display = "none";
  }
 
- spanInmueble.onclick = function() {
-     inmuebleModal.style.display = "none";
- }
-
  // When the user clicks anywhere outside of the modal, close it
  window.onclick = function(event) {
      if (event.target == modal) {
          modal.style.display = "none";
      }
-
-     if (event.target == inmuebleModal) {
-         inmuebleModal.style.display = "none";
-     }
-
  }
 
  $(function(){
@@ -207,28 +174,6 @@
 
  $(document).ready(iniciar);
 
- function iniciar(){
-   $("#matricula").focusout(validaMatricula);
- }
-
-
- function validaMatricula(){
-   var x = $(this).val();
-   $.ajax({
-   url: "valorMatricula.php",
-   type: "post",
-   data: "matricula="+x,
-   success: function(data){
-     $("#idmatricula").val(data);
-     if (document.getElementById("idmatricula").value == "Matricula Existe") {
-       inmuebleModal.style.display = "block";
-       document.getElementById("matricula").value = null;
-     }
-   }
-   });
- }
-
-
- </script>
+</script>
 
 <?php require 'vista/footer.php' ?>

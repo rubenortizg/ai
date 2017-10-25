@@ -32,11 +32,11 @@ if (isset($_SESSION['usuario'])) {
   $pdf = new FPDF('L', 'mm', array(210,140));
   $pdf->AddPage();
 
-  $pdf->SetTitle('Comprobante # ' . $recibo['nrecibo'] . ' - ' . $recibo['pnombre']. $recibo['papellido']);
+  $pdf->SetTitle('Comprobante No ' . $recibo['nrecibo'] . ' - ' . $recibo['pnombre']. $recibo['papellido']);
 
   // Logo
-  $pdf->Image('imagenes/g&g.jpg',20,9,30,0,'JPG');
-  $pdf->Image('imagenes/g&g22.png',60,40,90,0,'PNG');
+  $pdf->Image('imagenes/logo.png',20,9,30,0,'PNG');
+  $pdf->Image('imagenes/logo22.png',60,40,90,0,'PNG');
   // Encabezado
   $pdf->SetFont('Arial','B',16);
   $pdf->Cell(45);
@@ -44,9 +44,9 @@ if (isset($_SESSION['usuario'])) {
   // Contorno
   $pdf->SetFont('Arial','',14);
   $pdf->Cell(8);
-  $pdf->Cell(21,9, 'Recibo #', 0, 0, 'L');
+  $pdf->Cell(28,9, 'Recibo No. ', 0, 0, 'L');
   $pdf->SetFont('Arial','IU',14);
-  $pdf->Cell(69,9, $recibo['nrecibo'], 0, 0, 'L');
+  $pdf->Cell(62,9, $recibo['nrecibo'], 0, 0, 'L');
   $pdf->SetFont('Arial','',14);
   $pdf->Cell(50,9, 'Valor: $', 0, 0, 'R');
   $pdf->SetFont('Arial','IU',14);
@@ -94,7 +94,7 @@ if (isset($_SESSION['usuario'])) {
   $pdf->Cell(180,1, 'Firma autorizada y Sello', 0, 0, 'C');
 
   $pdf->SetDisplayMode('real');
-  $pdf->Output('I', 'Comprobante # ' . $recibo['nrecibo'] . ' - ' . $recibo['pnombre'].' '.$recibo['papellido']);
+  $pdf->Output('I', 'Comprobante No ' . $recibo['nrecibo'] . ' - ' . $recibo['pnombre'].' '.$recibo['papellido']);
 
   $pagina = basename(__FILE__ );
   setcookie("pagina_anterior", $pagina, time()+60);

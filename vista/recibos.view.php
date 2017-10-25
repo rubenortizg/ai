@@ -22,15 +22,15 @@
     <div class="recibos">
       <p>Comprobantes de Pago </p>
       <br>
-      <table>
-        <tr>
+      <table class="table table-bordered table-hover table-sm table-responsive">
+        <thead class="bg-primary text-white">
           <th># Recibo</th>
           <th>Arrendatario</th>
           <th>Concepto</th>
           <th>Inmueble</th>
           <th>Valor</th>
           <th>Fecha de Registro</th>
-        </tr>
+        </thead class="bg-primary text-white">
         <?php foreach ($recibos as $recibo): ?>
         <tr>
           <td><a href="recibo.php?id=<?php echo $recibo['nrecibo']; ?>"><?php echo $recibo['nrecibo']; ?></a></td>

@@ -19,7 +19,7 @@ if (isset($_SESSION['usuario'])) {
 
     if ($_COOKIE['pagina_anterior'] === 'clientes.php') {
       $sql = 'SELECT * FROM clientes WHERE identificacion LIKE :busqueda or pnombre LIKE :busqueda or snombre
-              LIKE :busqueda or papellido LIKE :busqueda or sapellido LIKE :busqueda';
+              LIKE :busqueda or papellido LIKE :busqueda or sapellido LIKE :busqueda or ciudad LIKE :busqueda';
     }
 
     elseif ($_COOKIE['pagina_anterior'] === 'inmuebles.php') {

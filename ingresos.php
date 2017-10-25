@@ -10,7 +10,7 @@ if (isset($_SESSION['usuario'])) {
   }
 
   $acentos = charset($conexion);
-  $ingresos= obtener_recibos( $admin_config['rows'], $conexion);
+  $ingresos= obtener_ingresos( $admin_config['rows'], $conexion);
 
   $pagina = basename(__FILE__ );
   setcookie("pagina_anterior", $pagina, time()+60);

@@ -1,58 +1,123 @@
 <?php require 'header.php'; ?>
 
-  <div class="contenedor">
+<div class="container recibos">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-8 col-lg-6">
+      <div class="row no-gutters">
+        <div class="col-10">
+          <img class="img-fluid float-left" width=90px src="imagenes/logo.png" alt="Logo Inmobiliaria">
+          <h4 class="text-center mt-3">Recibo de Ingreso</h4>
+        </div>
+        <div class="col-2">
+          <nav class="float-right nuevo">
+            <ul>
+              <li><a href="ingresos.php"><i class="fa fa-reply fa-lg"></i></a></li>
+              <li><a href="generaIngresoPdf.php?id=<?php echo $ingreso['ningreso']; ?>" target="_blank"><i class="fa fa-file-pdf-o fa-lg"></i></a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
 
-    <div class="derecha">
-      <nav class="nuevo">
-        <ul>
-          <li><a href="ingresos.php"><i class="fa fa-reply fa-lg"></i></a></li>
-          <li><a href="generaIngresoPdf.php?id=<?php echo $ingreso['nrecibo']; ?>" target="_blank"><i class="fa fa-file-pdf-o fa-lg"></i></a></li>
-        </ul>
-      </nav>
+      <div class="row justify-content-center my-1">
+        <div class="col-12 col-md-6">
+          <h6>Ingreso No. <span class="enfasis"><?php echo $ingreso['ningreso']; ?></span></h6>
+        </div>
+        <div class="col-12 col-md-6 text-right">
+          <h6>Valor: <span class="enfasis">$ <?php echo $ingreso['valorpago']; ?></span></h6>
+        </div>
+      </div>
+
+
+      <div class="row justify-content-center my-1">
+        <div class="col-12 col-md-6">
+          <div class="card border-secondary">
+            <div class="card-header mx-1 p-0"><small>En la ciudad de</small></div>
+            <div class="card-text mx-1 py-1"><small><?php echo $ingreso['ciudad'];?></small></div>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <div class="card border-secondary">
+            <div class="card-header mx-1 p-0"><small>El día</small></div>
+            <div class="card-text mx-1 py-1"><small><?php echo fecha($ingreso['fecha']);?></small></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row justify-content-center my-1">
+        <div class="col-12">
+          <div class="card border-secondary">
+            <div class="card-header mx-1 p-0"><small>Recibimos de</small></div>
+            <div class="card-text mx-1 py-1"><small><?php echo $ingreso['pnombre'].' '.$ingreso['snombre'].' '.$ingreso['papellido'].' '.$ingreso['sapellido'];?></small></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row justify-content-center my-1">
+        <div class="col-12">
+          <div class="card border-secondary">
+            <div class="card-header mx-1 p-0"><small>La suma de</small></div>
+            <div class="card-text mx-1 py-1"><small><?php echo $valorLetras;?></small></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row justify-content-center my-1">
+        <div class="col-12 col-md-6">
+          <div class="card border-secondary">
+            <div class="card-header mx-1 p-0"><small>Por concepto de</small></div>
+            <div class="card-text mx-1 py-1"><small><?php echo $ingreso['concepto'];?></small></div>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <div class="card border-secondary">
+            <div class="card-header mx-1 p-0"><small>del inmueble tipo</small></div>
+            <div class="card-text mx-1 py-1"><small><?php echo $ingreso['tipo'];?></small></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row my-1">
+        <div class="col-12">
+          <div class="card border-secondary">
+            <div class="card-header mx-1 p-0"><small>Ubicado en la</small></div>
+            <div class="card-text mx-1 py-1"><small><?php echo $ingreso['direccion'];?></small></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row justify-content-center my-1">
+        <div class="col-12 col-md-6">
+          <div class="card border-secondary">
+            <div class="card-header mx-1 p-0"><small>Correspondiente al periodo del</small></div>
+            <div class="card-text mx-1 py-1"><small><?php echo fecha($ingreso['iperiodo']);?></small></div>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <div class="card border-secondary">
+            <div class="card-header mx-1 p-0"><small>al</small></div>
+            <div class="card-text mx-1 py-1"><small><?php echo fecha($ingreso['fperiodo']);?></small></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row mb-0">
+        <div class="col-12">
+          <div class="row">
+            <div class="col-12 text-right d-flex justify-content-center my-0">
+              <h5><small><?php echo $ingreso['upnombre'].' '.$ingreso['usnombre'].' '.$ingreso['upapellido'].' '.$ingreso['usapellido']; ?></small></h5>
+            </div>
+            <div class="col-12 text-right d-flex justify-content-center my-0">
+              <label for="idusuario"><h6><small>Firma autorizada y Sello</small></h6></label>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
-
-    <div class="recibo">
-      <table class="recibo">
-        <tr>
-          <td>
-
-            <div class="head">
-              <img class="logoRecibo" src="imagenes/g&g.jpg" alt="G&G Inmobiliaria">
-              <h2>Comprobante de Ingreso</h2>
-
-            </div>
-
-            <div class="contorno">
-
-              <div class="nrecibo">
-                <h2>Ingreso # <span class="enfasis"><?php echo $ingreso['nrecibo']; ?></span></h2>
-              </div>
-              <div class="valor">
-                <h2>Valor: $ <span class="enfasis"><?php echo $ingreso['valorpago']; ?></span></h2>
-              </div>
-
-            </div>
-
-            <div class="contenido">
-              <img class="imagenReciboFondo"src="imagenes/g&g22.png" alt="G&G Inmobiliaria">
-              <div class="topLeft">
-                <p>En la ciudad de <span class="enfasis"><?php echo $ingreso['ciudad'];?></span>, el día <span class="enfasis"><?php echo fecha($ingreso['fecha']);?></span></p>
-                <p>Recibi(mos) de <span class="enfasis"><?php echo $ingreso['pnombre'].' '.$ingreso['snombre'].' '.$ingreso['papellido'].' '.$ingreso['sapellido'];?></span></p>
-                <p>La suma de <span class="enfasis"><?php echo $valorLetras;?></span></p>
-                <p>Por concepto de <?php echo $ingreso['concepto'];?> del inmueble tipo <span class="enfasis"><?php echo $ingreso['tipo'];?></span> </p>
-                <p>Ubicado en la <span class="enfasis"><?php echo $ingreso['direccion'];?></span></p>
-                <p>Correspondiente al periodo del <span class="enfasis"><?php echo fecha($ingreso['iperiodo']);?></span> al <span class="enfasis"><?php echo fecha($ingreso['fperiodo']);?></span></p>
-              </div>
-            </div>
-            <div class="firma">
-              <h2><?php echo $ingreso['upnombre'].' '.$ingreso['usnombre'].' '.$ingreso['upapellido'].' '.$ingreso['usapellido']; ?></h2>
-              <p>Firma autorizada y Sello</p>
-            </div>
-
-        </td>
-      </tr>
-    </table>
-   </div>
- </div>
+  </div>
+</div>
 
 <?php require 'vista/footer.php' ?>

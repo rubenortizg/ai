@@ -5,8 +5,8 @@
     <div class="clientes">
       <p>Ultimo cliente registrado</p>
       <br>
-      <table>
-        <tr>
+      <table class="table table-bordered table-hover table-sm table-responsive">
+        <thead class="bg-primary text-white">
           <th>Identificacion</th>
           <th>Nombres</th>
           <th>Apellidos</th>
@@ -14,7 +14,7 @@
           <th>Fijo</th>
           <th>Celular</th>
           <th>Ciudad</th>
-        </tr>
+        </thead>
       <?php foreach ($clientes as $cliente): ?>
         <tr>
           <td> <a href="cliente.php?id=<?php echo $cliente['identificacion']; ?>"><?php echo $cliente['identificacion']; ?></a></td>
@@ -32,18 +32,18 @@
     <div class="inmuebles">
       <p>Ultimo inmueble registrado</p>
       <br>
-      <table>
-        <tr>
+      <table class="table table-bordered table-hover table-sm table-responsive">
+        <thead class="bg-primary text-white">
           <th>Matricula</th>
           <th>Tipo</th>
           <th>Direccion</th>
           <th>Ciudad</th>
           <th>Propietario</th>
           <th>Valor Comercial</th>
-        </tr>
+        </thead>
       <?php foreach ($inmuebles as $inmueble): ?>
   <tr>
-          <td> <a href="inmueble.php?id=<?php echo $inmueble['matricula']; ?>"><?php echo $inmueble['matricula']; ?></a></td>
+          <td> <a href="inmueble.php?id=<?php echo $inmueble['id']; ?>"><?php echo $inmueble['matricula']; ?></a></td>
           <td> <?php echo $inmueble['tipo']; ?></td>
           <td> <?php echo $inmueble['direccion']; ?></td>
           <td> <?php echo $inmueble['ciudad']; ?></td>
@@ -56,15 +56,15 @@
     <div class="recibos">
       <p>Ultimo comprobante de pago generado</p>
       <br>
-      <table>
-        <tr>
+      <table class="table table-bordered table-hover table-sm table-responsive">
+        <thead class="bg-primary text-white">
           <th># Recibo</th>
           <th>Arrendatario</th>
           <th>Concepto</th>
           <th>Inmueble</th>
           <th>Valor</th>
           <th>Fecha de Registro</th>
-        </tr>
+        </thead>
       <?php foreach ($recibos as $recibo): ?>
   <tr>
           <td><a href="recibo.php?id=<?php echo $recibo['nrecibo']; ?>"><?php echo $recibo['nrecibo']; ?></a></td>

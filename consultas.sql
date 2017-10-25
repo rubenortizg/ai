@@ -45,6 +45,9 @@ CREATE TABLE `ai`.`clientes` (
   `celular` VARCHAR(100) NULL ,
   `ciudad` VARCHAR(100) NULL ,
   `tipo` VARCHAR(100) NULL ,
+  `banco` VARCHAR(100) NULL ,
+  `tcuenta` VARCHAR(100) NULL ,
+  `ncuenta` VARCHAR(100) NULL ,
   `notas` TEXT NULL ,
   `idusuario` INT(11) NOT NULL,
   PRIMARY KEY (`id`),
@@ -63,6 +66,51 @@ CREATE TABLE `ai`.`inmuebles` (
   PRIMARY KEY (`id`),
   UNIQUE (`matricula`)) ENGINE = InnoDB;
 
+CREATE TABLE `ai`.`recibos` (
+    `id` INT(11) NOT NULL AUTO_INCREMENT ,
+    `nrecibo` INT(11) NOT NULL ,
+    `valorpago` INT(11) NOT NULL ,
+    `ciudad` VARCHAR(100) NULL ,
+    `fecha` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+    `idarrendatario` INT(11) NOT NULL ,
+    `idinmueble` INT(11) NOT NULL ,
+    `iperiodo` DATE NOT NULL ,
+    `fperiodo` DATE NOT NULL ,
+    `idusuario` INT(11) NOT NULL ,
+    `concepto` VARCHAR(200) NULL ,
+    PRIMARY KEY (`id`),
+    UNIQUE (`nrecibo`)) ENGINE = InnoDB;
+
+  CREATE TABLE `ai`.`egresos` (
+      `id` INT(11) NOT NULL AUTO_INCREMENT ,
+      `negreso` INT(11) NOT NULL ,
+      `valorpago` INT(11) NOT NULL ,
+      `ciudad` VARCHAR(100) NULL ,
+      `fecha` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+      `idarrendatario` INT(11) NOT NULL ,
+      `idinmueble` INT(11) NOT NULL ,
+      `iperiodo` DATE NOT NULL ,
+      `fperiodo` DATE NOT NULL ,
+      `idusuario` INT(11) NOT NULL ,
+      `concepto` VARCHAR(200) NULL ,
+      PRIMARY KEY (`id`),
+      UNIQUE (`negreso`)) ENGINE = InnoDB;
+
+CREATE TABLE `ai`.`ingresos` (
+    `id` INT(11) NOT NULL AUTO_INCREMENT ,
+    `ningreso` INT(11) NOT NULL ,
+    `valorpago` INT(11) NOT NULL ,
+    `ciudad` VARCHAR(100) NULL ,
+    `fecha` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+    `idarrendatario` INT(11) NOT NULL ,
+    `idinmueble` INT(11) NOT NULL ,
+    `iperiodo` DATE NOT NULL ,
+    `fperiodo` DATE NOT NULL ,
+    `idusuario` INT(11) NOT NULL ,
+    `concepto` VARCHAR(200) NULL ,
+    PRIMARY KEY (`id`),
+    UNIQUE (`ningreso`)) ENGINE = InnoDB;
+
 CREATE TABLE `ai`.`contratos` (
   `id` INT(10) NOT NULL AUTO_INCREMENT ,
   `ncontrato` INT(10) NOT NULL ,
@@ -76,33 +124,6 @@ CREATE TABLE `ai`.`contratos` (
   `periodicidad` VARCHAR(100) NULL ,
   PRIMARY KEY (`id`)) ENGINE = InnoDB;
 
-CREATE TABLE `ai`.`recibos` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT ,
-  `nrecibo` INT(11) NOT NULL ,
-  `valorpago` INT(11) NOT NULL ,
-  `ciudad` VARCHAR(100) NULL ,
-  `fecha` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
-  `idarrendatario` INT(11) NOT NULL ,
-  `idinmueble` INT(11) NOT NULL ,
-  `iperiodo` DATE NOT NULL ,
-  `fperiodo` DATE NOT NULL ,
-  `idusuario` INT(11) NOT NULL ,
-  `concepto` VARCHAR(200) NULL ,
-  PRIMARY KEY (`id`),
-  UNIQUE (`nrecibo`)) ENGINE = InnoDB;
-
-CREATE TABLE `ai`.`egreso` (
-  `id` INT(10) NOT NULL AUTO_INCREMENT ,
-  `negreso` INT(10) NOT NULL ,
-  `valoregreso` VARCHAR(100) NOT NULL ,
-  `ciudad` VARCHAR(100) NULL ,
-  `fecha` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
-  `idcliente` INT(10) NOT NULL ,
-  `idusuario` INT(20) NOT NULL ,
-  `idconcepto` INT(20) NOT NULL ,
-  `observaciones` TEXT NULL ,
-  PRIMARY KEY (`id`),
-  UNIQUE (`negreso`)) ENGINE = InnoDB;
 
 CREATE TABLE `ai`.`econceptos` (
   `id` INT(10) NOT NULL AUTO_INCREMENT ,
@@ -123,16 +144,3 @@ CREATE TABLE `ai`.`iconceptos` (
   `concepto` VARCHAR(300) NULL ,
   `observaciones` TEXT NULL ,
   PRIMARY KEY (`id`)) ENGINE = InnoDB;
-
-CREATE TABLE `ai`.`ingreso` (
-  `id` INT(10) NOT NULL AUTO_INCREMENT ,
-  `ningreso` INT(10) NOT NULL ,
-  `ciudad` VARCHAR(100) NULL ,
-  `fecha` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
-  `valoringreso` VARCHAR(100) NOT NULL ,
-  `idcliente` INT(10) NOT NULL ,
-  `idusuario` INT(20) NOT NULL ,
-  `idconcepto` INT(20) NOT NULL ,
-  `observaciones` TEXT NULL ,
-  PRIMARY KEY (`id`),
-  UNIQUE (`ningreso`)) ENGINE = InnoDB;
