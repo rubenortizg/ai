@@ -42,13 +42,11 @@
           </div>
 
           <div class="form-group row my-0">
-            <div class="col-12 col-sm-11">
+            <div class="col-12 col-sm-12">
               <label for="idpropietario"><small>Propietario</small></label>
-              <input class="form-control form-control-sm" type="text" id="idpropietario" name="idpropietario" readonly="readonly" value="<?php echo $inmueble['pnombre'].' '.$inmueble['snombre'].' '.$inmueble['papellido'].' '.$inmueble['sapellido']; ?>"/>
-              <input type="hidden" name="idprr" id="idprr">
-            </div>
-            <div class="col-12 col-sm-1 d-flex justify-content-center align-items-end">
-              <a class="form-control-sm" id="ClienteBtn" href="#" ><i class="fa fa-users fa-lg"></i></a>
+              <select class="form-control form-control-sm" name="idprr" id="idprr">
+                 <option value="<?php echo $inmueble['pnombre'].' '.$inmueble['snombre'].' '.$inmueble['papellido'].' '.$inmueble['sapellido']; ?>"><?php echo $inmueble['pnombre'].' '.$inmueble['snombre'].' '.$inmueble['papellido'].' '.$inmueble['sapellido']; ?></option>
+              </select>
             </div>
           </div>
 
@@ -89,91 +87,26 @@
     </div>
   </div>
 
- <div id="ClienteModal" class="modal">
-
-   <div class="modal-content">
-     <div class="modal-header">
-       <span class="close">&times;</span>
-       <h3>Clientes Registrados</h3>
-     </div>
-     <div class="modal-body">
-       <br>
-       <table>
-         <tr>
-           <th>Id Cliente</th>
-           <th>Nombres</th>
-           <th>Apellidos</th>
-           <th>Fijo</th>
-           <th>Celular</th>
-           <th>Fecha Creación</th>
-         </tr>
-       <?php foreach ($clientes as $cliente): ?>
-         <tr idcliente="<?php echo $cliente['id'];?>" cliente="<?php echo $cliente['pnombre'].' '.$cliente['snombre'].' '.$cliente['papellido'].' '.$cliente['sapellido'];?>" class="click">
-           <td> <?php echo $cliente['identificacion']; ?></td>
-           <td> <?php echo $cliente['pnombre'].' '.$cliente['snombre']; ?></td>
-           <td> <?php echo $cliente['papellido'].' '.$cliente['sapellido']; ?></td>
-           <td> <?php echo $cliente['telfijo']; ?></td>
-           <td> <?php echo $cliente['celular']; ?></td>
-           <td> <?php echo $cliente['ciudad']; ?></td>
-         </tr>
-       <?php endforeach; ?>
-     </table>
-     <br/>
-
-     <?php require 'paginacionModal.php' ?>
-
-     </div>
-     <div class="modal-footer">
-       <h5>Seleccione el cliente </h5>
-     </div>
-   </div>
-
- </div>
-
  <script>
 
- // Get the modal
- var modal = document.getElementById('ClienteModal');
-
- // Get the button that opens the modal
- var btn = document.getElementById("ClienteBtn");
-
- // Get the <span> element that closes the modal
- var span = document.getElementsByClassName("close")[0];
-
- // When the user clicks the button, open the modal
- btn.onclick = function() {
-     modal.style.display = "block";
- }
-
- // When the user clicks on <span> (x), close the modal
- span.onclick = function() {
-     modal.style.display = "none";
- }
-
- // When the user clicks anywhere outside of the modal, close it
- window.onclick = function(event) {
-     if (event.target == modal) {
-         modal.style.display = "none";
-     }
- }
-
- $(function(){
-
-      $(".click").click(function(e) {
-          e.preventDefault();
-          var cliente = $(this).attr("cliente");
-          var idcliente = $(this).attr("idcliente");
-          document.getElementById("idpropietario").value = cliente;
-          document.getElementById("idprr").value = idcliente;
-          modal.style.display = "none";
-      });
-
+ $(document).ready(function() {
+     $('#idprr').select2({
+       placeholder: "Seleccione un cliente",
+       ajax: {
+          url: 'valorClientes.php',
+          dataType: 'json',
+          delay: 250,
+          processResults: function (data) {
+            return {
+              results: data
+            };
+          },
+          cache: true
+        },
+       allowClear: true
+     });
  });
 
-
- $(document).ready(iniciar);
-
-</script>
+ </script>
 
 <?php require 'vista/footer.php' ?>

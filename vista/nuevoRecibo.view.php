@@ -43,13 +43,9 @@
           </div>
 
           <div class="form-group row mb-0">
-            <div class="col-12 col-md-11">
+            <div class="col-12 col-md-12">
               <label for="idarrendatario"><small>Recibi(mos) de</small></label>
-              <input class="form-control form-control-sm" type="text" id="idarrendatario" name="idarrendatario" readonly="readonly"/>
-              <input type="hidden" name="idarr" id="idarr">
-            </div>
-            <div class="col-12 col-sm-1 d-flex justify-content-center align-items-end">
-              <a class="form-control-sm" id="ClienteBtn" href="#" ><i class="fa fa-users fa-lg"></i></a>
+              <select class="form-control form-control-sm" name="idarrienda" id="idarrienda"></select>
             </div>
           </div>
 
@@ -76,13 +72,9 @@
           </div>
 
           <div class="form-group row mb-0">
-            <div class="col-12 col-md-11">
+            <div class="col-12 col-md-12">
               <label for="direccion"><small>Ubicado en la</small></label>
-              <input class="form-control form-control-sm" type="text" id="direccion" name="direccion" value="" readonly="readonly"/>
-              <input type="hidden" name="iddireccion" id="iddireccion">
-            </div>
-            <div class="col-12 col-sm-1 d-flex justify-content-center align-items-end">
-              <a class="form-control-sm" id="InmuebleBtn" href="#" ><i class="fa fa-building fa-lg"></i></a>
+              <select class="form-control form-control-sm" name="iddireccion" id="iddireccion"></select>
             </div>
           </div>
 
@@ -119,159 +111,46 @@
     </div>
   </div>
 
- <div id="ClienteModal" class="modal">
-
-   <div class="modal-content">
-     <div class="modal-header">
-       <span class="close">&times;</span>
-       <h3>Clientes Registrados</h3>
-     </div>
-     <div class="modal-body">
-       <br>
-       <table>
-         <tr>
-           <th>Id Cliente</th>
-           <th>Nombres</th>
-           <th>Apellidos</th>
-           <th>Fijo</th>
-           <th>Celular</th>
-           <th>Fecha Creación</th>
-         </tr>
-       <?php foreach ($clientes as $cliente): ?>
-         <tr idcliente="<?php echo $cliente['id'];?>" cliente="<?php echo $cliente['pnombre'].' '.$cliente['snombre'].' '.$cliente['papellido'].' '.$cliente['sapellido'];?>" class="click">
-           <td> <?php echo $cliente['id']; ?></td>
-           <td> <?php echo $cliente['pnombre'].' '.$cliente['snombre']; ?></td>
-           <td> <?php echo $cliente['papellido'].' '.$cliente['sapellido']; ?></td>
-           <td> <?php echo $cliente['telfijo']; ?></td>
-           <td> <?php echo $cliente['celular']; ?></td>
-           <td> <?php echo $cliente['ciudad']; ?></td>
-         </tr>
-       <?php endforeach; ?>
-     </table>
-     <br/>
-
-     <?php require 'paginacionModal.php' ?>
-
-
-     </div>
-     <div class="modal-footer">
-       <h5>Seleccione el cliente </h5>
-     </div>
-   </div>
-
- </div>
-
-
-<div id="InmuebleModal" class="modal">
-
-   <div class="modal-content">
-     <div class="modal-header">
-       <span class="closeInmueble">&times;</span>
-       <h3>Clientes Registrados</h3>
-     </div>
-     <div class="modal-body">
-       <br>
-       <table>
-         <tr>
-           <th>Id Inmueble</th>
-           <th>Tipo</th>
-           <th>Direccion</th>
-           <th>Ciudad</th>
-         </tr>
-       <?php foreach ($inmuebles as $inmueble): ?>
-         <tr tipo="<?php echo $inmueble['tipo'];?>" idinmueble="<?php echo $inmueble['id'];?>" direccion="<?php echo $inmueble['direccion'];?>" class="clickInmueble">
-           <td> <?php echo $inmueble['id']; ?></td>
-           <td> <?php echo $inmueble['tipo']; ?></td>
-           <td> <?php echo $inmueble['direccion']; ?></td>
-           <td> <?php echo $inmueble['ciudad']; ?></td>
-         </tr>
-       <?php endforeach; ?>
-     </table>
-     <br/>
-
-     <?php require 'paginacionModal.php' ?>
-
-
-     </div>
-     <div class="modal-footer">
-       <h5>Seleccione el cliente </h5>
-     </div>
-   </div>
-
-</div>
-
-
-
-
-
  <script>
- // Get the modal
- var modal = document.getElementById('ClienteModal');
- var inmuebleModal = document.getElementById('InmuebleModal');
 
- // Get the button that opens the modal
- var btn = document.getElementById("ClienteBtn");
- var inmuebleBtn = document.getElementById("InmuebleBtn");
+ $(document).ready(function() {
+     $('#idarrienda').select2({
+       placeholder: "Seleccione un cliente",
+       ajax: {
+          url: 'valorClientes.php',
+          dataType: 'json',
+          delay: 250,
+          processResults: function (data) {
+            return {
+              results: data
+            };
+          },
+          cache: true
+        },
+       allowClear: true
+     });
+ });
 
- // Get the <span> element that closes the modal
- var span = document.getElementsByClassName("close")[0];
- var spanInmueble = document.getElementsByClassName("closeInmueble")[0];
 
- // When the user clicks the button, open the modal
- btn.onclick = function() {
-     modal.style.display = "block";
- }
-
- inmuebleBtn.onclick = function() {
-     inmuebleModal.style.display = "block";
- }
-
- // When the user clicks on <span> (x), close the modal
- span.onclick = function() {
-     modal.style.display = "none";
- }
-
- spanInmueble.onclick = function() {
-     inmuebleModal.style.display = "none";
- }
-
- // When the user clicks anywhere outside of the modal, close it
- window.onclick = function(event) {
-     if (event.target == modal) {
-         modal.style.display = "none";
-     }
-
-     if (event.target == inmuebleModal) {
-         inmuebleModal.style.display = "none";
-     }
-
- }
-
-$(function(){
-
-      $(".click").click(function(e) {
-          e.preventDefault();
-          var cliente = $(this).attr("cliente");
-          var idcliente = $(this).attr("idcliente");
-          document.getElementById("idarrendatario").value = cliente;
-          document.getElementById("idarr").value = idcliente;
-          modal.style.display = "none";
-      });
-
-      $(".clickInmueble").click(function(e) {
-          e.preventDefault();
-          var direccion = $(this).attr("direccion");
-          var idinmueble = $(this).attr("idinmueble");
-          var tipo = $(this).attr("tipo");
-          document.getElementById("direccion").value = direccion;
-          document.getElementById("iddireccion").value = idinmueble;
-          document.getElementById("tipoinmueble").value = tipo;
-          inmuebleModal.style.display = "none";
-      });
-});
+ $(document).ready(function() {
+     $('#iddireccion').select2({
+       placeholder: "Seleccione un inmueble",
+       ajax: {
+          url: 'valorInmuebles.php',
+          dataType: 'json',
+          delay: 250,
+          processResults: function (data) {
+            return {
+              results: data
+            };
+          },
+          cache: true
+        },
+       allowClear: true
+     });
+ });
 
 $(document).ready(iniciar);
-
 function iniciar(){
   $("#valorpago").focusout(mostrarValor);
 }
@@ -287,8 +166,6 @@ function mostrarValor(){
   }
   });
 }
-
-
 jQuery(function($){
   $.datepicker.regional['es'] = {
     closeText: 'Cerrar',
@@ -310,19 +187,15 @@ jQuery(function($){
     yearSuffix: ''};
   $.datepicker.setDefaults($.datepicker.regional['es']);
 });
-
 $('#datepicker').datepicker({
     format: 'mm-dd-yyyy'
 });
-
 $('#iperiodo').datepicker({
     format: 'mm-dd-yyyy'
 });
-
 $('#fperiodo').datepicker({
     format: 'mm-dd-yyyy'
 });
-
 </script>
 
 

@@ -11,7 +11,7 @@
 
 	<script src='https://www.google.com/recaptcha/api.js'></script>
 
-	<title>SONI - Administrador Inmobiliario</title>
+	<title>Administrador Inmobiliario</title>
 </head>
   <body>
 

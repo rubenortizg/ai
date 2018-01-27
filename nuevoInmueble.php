@@ -19,7 +19,7 @@ if (isset($_SESSION['usuario'])) {
 
     $tipo = $_POST['tipo'];
     $matricula = limpiarDatos($_POST['matricula']);
-    $idpropietario = $_POST['idprr'];
+    $idpropietario = $_POST['idarrienda'];
     $direccion = limpiarDatos($_POST['direccion']);
     $ciudad = limpiarDatos($_POST['ciudad']);
     $valor = limpiarDatos($_POST['valor']);

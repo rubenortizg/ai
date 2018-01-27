@@ -42,7 +42,7 @@ if (isset($_SESSION['usuario'])) {
     $negreso = (int)$negreso;
     $valorpago = limpiarDatos($_POST['valorpago']);
     $ciudad = limpiarDatos($_POST['ciudad']);
-    $idarrendatario = (int)$_POST['idarr'];
+    $idarrendatario = (int)$_POST['idarrienda'];
     $idinmueble = (int)$_POST['iddireccion'];
     $iperiodo = $_POST['iperiodo'];
     $fperiodo = $_POST['fperiodo'];
@@ -131,6 +131,7 @@ if (isset($_SESSION['usuario'])) {
     $clientes = obtener_clientes( $admin_config['rows'], $conexion);
     $numero_paginas = numero_paginas($admin_config['rows'], $conexion);
     $inmuebles = obtener_inmuebles( $admin_config['rows'], $conexion);
+
     $login = $_SESSION['usuario'];
     $usuario = obtener_usuario_por_id($conexion,$login);
     $usuario = $usuario[0];

@@ -7,12 +7,17 @@
 	<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
+	<link href="<?php echo RUTA; ?>/css/select2.min.css" rel="stylesheet" />
+	
 	<link rel="stylesheet" href="<?php echo RUTA; ?>/css/bootstrap.min.css">
 	<link rel="stylesheet" href="<?php echo RUTA; ?>/css/estilos.css">
 
 	<link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	<script src="http://code.jquery.com/jquery-1.12.4.js"></script>
 	<script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+
 
 	<title>Administrador Inmobiliario</title>
 </head>
