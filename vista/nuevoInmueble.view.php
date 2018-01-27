@@ -18,9 +18,24 @@
             </div>
           </div>
 
+          <?php if (!empty($errores)): ?>
+
+            <div class="row">
+              <div class="col">
+                <div class="alert alert-danger alert-dismissible fade show" id="alerta">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Cerrar">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  <?php echo $errores; ?>
+                </div>
+              </div>
+            </div>
+
+          <?php endif ?>
+
           <div class="form-group mb-0">
             <h6>Inmueble ID No. <span class="enfasis"><?php echo $ninmueble; ?></span></h6>
-            <input type="hidden" name="idinmueble" value="<?php echo $ninmueble; ?>">
+            <input type="hidden" name="ninmueble" value="<?php echo $ninmueble; ?>">
           </div>
 
           <div class="form-group row my-0">
@@ -36,26 +51,36 @@
             </div>
             <div class="col-12 col-md-6">
               <label for="matricula"><small>No. Matricula</small></label>
-              <input class="form-control form-control-sm" type="text" id="matricula" name="matricula"/>
+              <input class="form-control form-control-sm" type="text" id="matricula" name="matricula" value="<?php
+              if(!$enviado && isset($matricula)  && ($matricula == '0')) {echo '';}
+              elseif (!$enviado && isset($matricula)) { echo $matricula;}
+
+              ?>"/>
               <input type="hidden" name="idmatricula" id="idmatricula">
             </div>
           </div>
 
           <div class="form-group row my-0">
             <div class="col-12 col-sm-12">
-              <label for="idpropietario"><small>Propietario</small></label>
-              <select class="form-control form-control-sm" name="idarrienda" id="idarrienda"></select>
+              <label for="idarrienda"><small>Propietario</small></label>
+              <select class="form-control form-control-sm" name="idarrienda" id="idarrienda"> </select>
             </div>
           </div>
 
           <div class="form-group row my-0">
             <div class="col-12 col-md-8">
               <label for="direccion"><small>Direccion</small></label>
-              <input class="form-control form-control-sm" type="text" id="direccion" name="direccion" />
+              <input class="form-control form-control-sm" type="text" id="direccion" name="direccion" value="<?php
+              if(!$enviado && isset($direccion)  && ($direccion == '0')) {echo '';}
+              elseif (!$enviado && isset($direccion)) { echo $direccion;}
+              ?>"/>
             </div>
             <div class="col-12 col-md-4">
               <label for="ciudad"><small>Ciudad</small></label>
-              <input class="form-control form-control-sm" type="text" id="ciudad" name="ciudad" />
+              <input class="form-control form-control-sm" type="text" id="ciudad" name="ciudad" value="<?php
+              if(!$enviado && isset($ciudad)  && ($ciudad == '0')) {echo '';}
+              elseif (!$enviado && isset($ciudad)) { echo $ciudad;}
+              ?>"/>
               <label for="valor"><small>Valor</small></label>
               <input class="form-control form-control-sm" type="text" id="valor" name="valor" />
             </div>
@@ -85,29 +110,7 @@
     </div>
   </div>
 
- <div id="InmuebleModal" class="modal">
-
-   <div class="modal-content">
-     <div class="modal-header">
-       <span class="closeInmueble">&times;</span>
-       <h3>Inmuebles Registrados</h3>
-     </div>
-     <div class="modal-body">
-       <br>
-       <table>
-         <tr>
-           <td><h2>La matricula ingresada existe en la base de datos, verifique el valor</h2></td>
-         </tr>
-     </table>
-     <br/>
-     </div>
-     <div class="modal-footer">
-     </div>
-   </div>
- </div>
-
-
- <script>
+<script>
 
  $(document).ready(function() {
      $('#idarrienda').select2({
@@ -127,70 +130,6 @@
      });
  });
 
- // Get the modal
-
- var inmuebleModal = document.getElementById('InmuebleModal');
-
- // Get the button that opens the modal
-
- // Get the <span> element that closes the modal
-
- var spanInmueble = document.getElementsByClassName("closeInmueble")[0];
-
-
- // When the user clicks on <span> (x), close the modal
-
- spanInmueble.onclick = function() {
-     inmuebleModal.style.display = "none";
- }
-
- // When the user clicks anywhere outside of the modal, close it
- window.onclick = function(event) {
-
-     if (event.target == inmuebleModal) {
-         inmuebleModal.style.display = "none";
-     }
-
- }
-
- $(function(){
-
-      $(".click").click(function(e) {
-          e.preventDefault();
-          var cliente = $(this).attr("cliente");
-          var idcliente = $(this).attr("idcliente");
-          document.getElementById("idpropietario").value = cliente;
-          document.getElementById("idprr").value = idcliente;
-          modal.style.display = "none";
-      });
-
- });
-
-
- $(document).ready(iniciar);
-
- function iniciar(){
-   $("#matricula").focusout(validaMatricula);
- }
-
-
- function validaMatricula(){
-   var x = $(this).val();
-   $.ajax({
-   url: "valorMatricula.php",
-   type: "post",
-   data: "matricula="+x,
-   success: function(data){
-     $("#idmatricula").val(data);
-     if (document.getElementById("idmatricula").value == "Matricula Existe") {
-       inmuebleModal.style.display = "block";
-       document.getElementById("matricula").value = null;
-     }
-   }
-   });
- }
-
-
- </script>
+</script>
 
 <?php require 'vista/footer.php' ?>

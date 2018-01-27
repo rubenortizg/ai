@@ -19,33 +19,70 @@ if (isset($_SESSION['usuario'])) {
 
     $tipo = $_POST['tipo'];
     $matricula = limpiarDatos($_POST['matricula']);
+    if (isset($_POST['idarrienda'])) {
     $idpropietario = $_POST['idarrienda'];
+    } else {
+    $idpropietario = '';
+    }
     $direccion = limpiarDatos($_POST['direccion']);
     $ciudad = limpiarDatos($_POST['ciudad']);
     $valor = limpiarDatos($_POST['valor']);
     $descripcion = limpiarDatos($_POST['descripcion']);
     $idusuario = (int)$usuario['id'];
-    $idinmueble = limpiarDatos($_POST['idinmueble']);
+    $ninmueble = $_POST['ninmueble'];
+
+    // echo $ninmueble . '<br>';
+    // echo $tipo . '<br>';
+    // echo $matricula . '<br>';
+    // echo $idpropietario . '<br>';
+    // echo $direccion . '<br>';
+    // echo $ciudad . '<br>';
+    // echo $idusuario . '<br>';
+    //
+
+// Validacion de ingreso de información a los formularios
+
+    $errores = '';
+    $enviado = '';
 
     $matriculaExiste = obtener_inmueble_por_matricula($conexion,$matricula);
 
-    if ($matriculaExiste == false) {
-      $sql = 'INSERT INTO inmuebles (id, matricula, tipo, direccion, ciudad, valor, descripcion, idpropietario, idusuario)
-      VALUES (null, :matricula, :tipo, :direccion, :ciudad, :valor, :descripcion, :idpropietario, :idusuario)';
-
-      $sentencia = $conexion->prepare($sql);
-      $sentencia->execute(array(
-        ':matricula' => $matricula,
-        ':tipo' => $tipo,
-        ':direccion' => $direccion,
-        ':ciudad' => $ciudad,
-        ':valor' => $valor,
-        ':descripcion' => $descripcion,
-        ':idpropietario' => $idpropietario,
-        ':idusuario' => $idusuario));
+    if ($matriculaExiste) {
+      $errores .= 'La matricula del cliente ingresada existe en la base de datos, verifique el valor. <br />';
+    } else {
+      if ($matricula == '') {
+        $errores .= 'Debe ingresar un valor de matricula. <br />';
+      }
+      if (empty($idpropietario)) {
+        $errores .= 'Debe seleccionar un cliente existente. <br />';
+      }
+      if (empty($direccion)) {
+        $errores .= 'Es necesario ingresar una direccion. <br />';
+      }
+      if (empty($ciudad)) {
+        $errores .= 'Es necesario ingresar una ciudad. <br />';
+      }
     }
 
-    header('Location: ' . RUTA . '/inmueble.php?id='.$idinmueble);
+    if (!$errores) {
+      if ($matriculaExiste == false) {
+        $sql = 'INSERT INTO inmuebles (id, matricula, tipo, direccion, ciudad, valor, descripcion, idpropietario, idusuario)
+        VALUES (null, :matricula, :tipo, :direccion, :ciudad, :valor, :descripcion, :idpropietario, :idusuario)';
+
+        $sentencia = $conexion->prepare($sql);
+        $sentencia->execute(array(
+          ':matricula' => $matricula,
+          ':tipo' => $tipo,
+          ':direccion' => $direccion,
+          ':ciudad' => $ciudad,
+          ':valor' => $valor,
+          ':descripcion' => $descripcion,
+          ':idpropietario' => $idpropietario,
+          ':idusuario' => $idusuario));
+      }
+
+      header('Location: ' . RUTA . '/inmueble.php?id='.$ninmueble);
+    }
   }
 
   else {
@@ -62,6 +99,7 @@ if (isset($_SESSION['usuario'])) {
     $login = $_SESSION['usuario'];
     $usuario = obtener_usuario_por_id($conexion,$login);
     $usuario = $usuario[0];
+    $enviado = '';
   }
 
   $pagina = basename(__FILE__ );
