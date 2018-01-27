@@ -3,7 +3,7 @@
 define('RUTA', 'http://localhost/ai');
 
 $db_config = array(
-  'database' => 'ai2',
+  'database' => 'ai',
   'usuario' => 'root',
   'password' => ''
 );
