@@ -198,7 +198,7 @@ function obtener_cliente_x_id($conexion, $id){
 function obtener_inmueble_por_id($conexion, $id){
 
   $sql = "SELECT inmuebles.id, inmuebles.matricula, inmuebles.tipo, inmuebles.direccion,
-                 inmuebles.ciudad, inmuebles.valor, inmuebles.descripcion,
+                 inmuebles.ciudad, inmuebles.valor, inmuebles.descripcion, inmuebles.idpropietario,
                  clientes.pnombre, clientes.snombre, clientes.papellido, clientes.sapellido,
                  usuarios.upnombre, usuarios.usnombre, usuarios.upapellido, usuarios.usapellido FROM inmuebles
           INNER JOIN clientes ON inmuebles.idpropietario = clientes.id

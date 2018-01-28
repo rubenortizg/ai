@@ -63,7 +63,7 @@
           <div class="form-group row my-0">
             <div class="col-12 col-sm-12">
               <label for="idarrienda"><small>Propietario</small></label>
-              <select class="form-control form-control-sm" name="idarrienda" id="idarrienda"> </select>
+              <select class="form-control form-control-sm" name="idarrienda" id="idarrienda"> </select>              
             </div>
           </div>
 

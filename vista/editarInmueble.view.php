@@ -26,12 +26,13 @@
           <div class="form-group row my-0">
             <div class="col-12 col-md-6">
               <label for="tipo"><small>Tipo de Inmueble</small></label>
-              <select class="form-control form-control-sm" name="tipo">
-                  <option selected value="Apartamento">Apartamento </option>
-                  <option value="Casa">Casa </option>
-                  <option value="Local">Local</option>
-                  <option value="Bodega">Bodega</option>
-                  <option value="Lote">Lote</option>
+              <select class="form-control form-control-sm" name="tipo" id="tipo">
+                <option value="<?php echo $inmueble['tipo']?>"><?php echo $inmueble['tipo']; ?></option>
+                <option value="Apartamento">Apartamento </option>
+                <option value="Casa">Casa </option>
+                <option value="Local">Local</option>
+                <option value="Bodega">Bodega</option>
+                <option value="Lote">Lote</option>
               </select>
             </div>
             <div class="col-12 col-md-6">
@@ -45,7 +46,7 @@
             <div class="col-12 col-sm-12">
               <label for="idpropietario"><small>Propietario</small></label>
               <select class="form-control form-control-sm" name="idprr" id="idprr">
-                 <option value="<?php echo $inmueble['pnombre'].' '.$inmueble['snombre'].' '.$inmueble['papellido'].' '.$inmueble['sapellido']; ?>"><?php echo $inmueble['pnombre'].' '.$inmueble['snombre'].' '.$inmueble['papellido'].' '.$inmueble['sapellido']; ?></option>
+                 <option value="<?php echo $inmueble['idpropietario']?>"><?php echo $inmueble['pnombre'].' '.$inmueble['snombre'].' '.$inmueble['papellido'].' '.$inmueble['sapellido']; ?></option>
               </select>
             </div>
           </div>
@@ -88,6 +89,14 @@
   </div>
 
  <script>
+
+ $(document).ready(function() {
+     $('#tipo').select2({
+       placeholder: "Seleccione un tipo de inmueble",
+       allowClear: true
+    });
+ });
+
 
  $(document).ready(function() {
      $('#idprr').select2({
