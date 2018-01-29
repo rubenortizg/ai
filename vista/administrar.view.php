@@ -15,7 +15,7 @@
           <th>Celular</th>
           <th>Ciudad</th>
         </thead>
-      <?php foreach ($clientes as $cliente): ?>
+      <?php if(!$inmuebles){echo "No se ha creado clientes";} else foreach ($clientes as $cliente): ?>
         <tr>
           <td> <a href="cliente.php?id=<?php echo $cliente['identificacion']; ?>"><?php echo $cliente['identificacion']; ?></a></td>
           <td> <?php echo $cliente['pnombre'].' '.$cliente['snombre']; ?></td>
@@ -41,7 +41,7 @@
           <th>Propietario</th>
           <th>Valor Comercial</th>
         </thead>
-      <?php foreach ($inmuebles as $inmueble): ?>
+      <?php if(!$inmuebles){echo "No hay inmuebles creados";} else foreach ($inmuebles as $inmueble): ?>
   <tr>
           <td> <a href="inmueble.php?id=<?php echo $inmueble['id']; ?>"><?php echo $inmueble['matricula']; ?></a></td>
           <td> <?php echo $inmueble['tipo']; ?></td>
@@ -65,7 +65,7 @@
           <th>Valor</th>
           <th>Fecha de Registro</th>
         </thead>
-      <?php foreach ($recibos as $recibo): ?>
+      <?php if(!$recibos){echo "No se han generado recibos";} else foreach ($recibos as $recibo): ?>
   <tr>
           <td><a href="recibo.php?id=<?php echo $recibo['nrecibo']; ?>"><?php echo $recibo['nrecibo']; ?></a></td>
           <td> <?php echo $recibo['pnombre'].' '.$recibo['snombre'].' '.$recibo['papellido'].' '.$recibo['sapellido']; ?></td>

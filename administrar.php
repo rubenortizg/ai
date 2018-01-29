@@ -34,20 +34,6 @@ if (isset($_SESSION['usuario'])) {
 
   $recibos = obtener_recibo_x_id($conexion, $recibo);
 
-/*
-  if (!$clientes) {
-    header('Location: administrar.php');
-  }
-
-  if (!$inmuebles) {
-    header('Location: administrar.php');
-  }
-
-  if (!$recibos) {
-    header('Location: administrar.php');
-  }
-
-*/
   $pagina = basename(__FILE__ );
   setcookie("pagina_anterior", $pagina, time()+60);
   require 'vista/administrar.view.php';
