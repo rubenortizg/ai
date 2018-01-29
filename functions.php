@@ -195,6 +195,24 @@ function obtener_cliente_x_id($conexion, $id){
 	return ($resultado) ? $resultado : false;
 }
 
+
+function obtener_nombre_cliente($conexion, $id){
+
+  $acentos = charset($conexion);
+
+  $sql = "SELECT * FROM clientes WHERE id = $id LIMIT 1";
+  $cliente = $conexion->prepare($sql);
+  $cliente->execute();
+
+  $nombre = '';
+  while($row = $cliente->fetch()){
+    $nombre = $row['pnombre'].' '.$row['snombre'].' '.$row['papellido'].' '.$row['sapellido'];
+  }
+
+  return ($nombre) ? $nombre : false;
+}
+
+
 function obtener_inmueble_por_id($conexion, $id){
 
   $sql = "SELECT inmuebles.id, inmuebles.matricula, inmuebles.tipo, inmuebles.direccion,

@@ -24,21 +24,13 @@ if (isset($_SESSION['usuario'])) {
     } else {
     $idpropietario = '';
     }
+    $cliente = obtener_nombre_cliente($conexion, $idpropietario);
     $direccion = limpiarDatos($_POST['direccion']);
     $ciudad = limpiarDatos($_POST['ciudad']);
     $valor = limpiarDatos($_POST['valor']);
     $descripcion = limpiarDatos($_POST['descripcion']);
     $idusuario = (int)$usuario['id'];
     $ninmueble = $_POST['ninmueble'];
-
-    // echo $ninmueble . '<br>';
-    // echo $tipo . '<br>';
-    // echo $matricula . '<br>';
-    // echo $idpropietario . '<br>';
-    // echo $direccion . '<br>';
-    // echo $ciudad . '<br>';
-    // echo $idusuario . '<br>';
-    //
 
 // Validacion de ingreso de información a los formularios
 
@@ -93,13 +85,15 @@ if (isset($_SESSION['usuario'])) {
     $resultado = (int)$resultado[0];
     $ninmueble = $resultado + 1;
 
-    $clientes = obtener_clientes( $admin_config['rows'], $conexion);
-    $numero_paginas = numero_paginas($admin_config['rows'], $conexion);
+    // $clientes = obtener_clientes( $admin_config['rows'], $conexion);
+    // $numero_paginas = numero_paginas($admin_config['rows'], $conexion);
 
     $login = $_SESSION['usuario'];
     $usuario = obtener_usuario_por_id($conexion,$login);
     $usuario = $usuario[0];
     $enviado = '';
+
+
   }
 
   $pagina = basename(__FILE__ );

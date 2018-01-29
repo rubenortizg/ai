@@ -41,12 +41,14 @@
           <div class="form-group row my-0">
             <div class="col-12 col-md-6">
               <label for="tipo"><small>Tipo de Inmueble</small></label>
-              <select class="form-control form-control-sm" name="tipo">
-                  <option selected value="Apartamento">Apartamento </option>
-                  <option value="Casa">Casa </option>
-                  <option value="Local">Local</option>
-                  <option value="Bodega">Bodega</option>
-                  <option value="Lote">Lote</option>
+              <select class="form-control form-control-sm" name="tipo" id="tipo">
+                <?php if(!$enviado && isset($tipo)) {echo '<option value="'.$tipo.'">'.$tipo.' </option>';} ?>
+
+                <option value="Apartamento">Apartamento </option>
+                <option value="Casa">Casa </option>
+                <option value="Local">Local</option>
+                <option value="Bodega">Bodega</option>
+                <option value="Lote">Lote</option>
               </select>
             </div>
             <div class="col-12 col-md-6">
@@ -63,7 +65,10 @@
           <div class="form-group row my-0">
             <div class="col-12 col-sm-12">
               <label for="idarrienda"><small>Propietario</small></label>
-              <select class="form-control form-control-sm" name="idarrienda" id="idarrienda"> </select>              
+              <select class="form-control form-control-sm" name="idarrienda" id="idarrienda">
+                <?php if(!$enviado && isset($idpropietario)) {echo '<option value="'.$idpropietario.'">'.$cliente.' </option>';} ?>
+
+              </select>
             </div>
           </div>
 
@@ -82,14 +87,20 @@
               elseif (!$enviado && isset($ciudad)) { echo $ciudad;}
               ?>"/>
               <label for="valor"><small>Valor</small></label>
-              <input class="form-control form-control-sm" type="text" id="valor" name="valor" />
+              <input class="form-control form-control-sm" type="text" id="valor" name="valor" value="<?php
+              if(!$enviado && isset($valor)  && ($valor == '0')) {echo '';}
+              elseif (!$enviado && isset($valor)) { echo $valor;}
+              ?>"/>
             </div>
           </div>
 
           <div class="form-group row my-0">
             <div class="col-12 col-md-8">
               <label for="descripcion"><small>Descripción del inmueble</small></label>
-              <textarea class="form-control form-control-sm" id="descripcion" name="descripcion" /></textarea>
+              <textarea class="form-control form-control-sm" id="descripcion" name="descripcion" /><?php
+              if(!$enviado && isset($descripcion)  && ($descripcion == '')) {echo '';}
+              elseif (!$enviado && isset($descripcion)) { echo $descripcion;}
+              ?></textarea>
             </div>
             <div class="col-12 col-md-4 d-flex align-items-end">
               <button class=" form-control btn btn-primary" type="submit">Crear Inmueble</button>
@@ -112,23 +123,30 @@
 
 <script>
 
- $(document).ready(function() {
-     $('#idarrienda').select2({
-       placeholder: "Seleccione un cliente",
-       ajax: {
-          url: 'valorClientes.php',
-          dataType: 'json',
-          delay: 250,
-          processResults: function (data) {
-            return {
-              results: data
-            };
-          },
-          cache: true
+$(document).ready(function() {
+    $('#tipo').select2({
+      placeholder: "Seleccione un tipo de inmueble",
+      allowClear: true
+   });
+});
+
+$(document).ready(function() {
+   $('#idarrienda').select2({
+     placeholder: "Seleccione un cliente",
+     ajax: {
+        url: 'valorClientes.php',
+        dataType: 'json',
+        delay: 250,
+        processResults: function (data) {
+          return {
+            results: data
+          };
         },
-       allowClear: true
-     });
- });
+        cache: true
+      },
+     allowClear: true
+   });
+});
 
 </script>
 
