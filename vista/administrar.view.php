@@ -15,17 +15,19 @@
           <th>Celular</th>
           <th>Ciudad</th>
         </thead>
-      <?php if(!$inmuebles){echo "No se ha creado clientes";} else foreach ($clientes as $cliente): ?>
-        <tr>
-          <td> <a href="cliente.php?id=<?php echo $cliente['identificacion']; ?>"><?php echo $cliente['identificacion']; ?></a></td>
-          <td> <?php echo $cliente['pnombre'].' '.$cliente['snombre']; ?></td>
-          <td> <?php echo $cliente['papellido'].' '.$cliente['sapellido']; ?></td>
-          <td> <?php echo $cliente['direccion']; ?></td>
-          <td> <?php echo $cliente['telfijo']; ?></td>
-          <td> <?php echo $cliente['celular']; ?></td>
-          <td> <?php echo $cliente['ciudad']; ?></td>
-        </tr>
-      <?php endforeach; ?>
+
+        <?php if(!$clientes) {echo "No se han creado clientes";} else {
+          echo '<tr>';
+          echo '<td> <a href="cliente.php?id='.$clientes['identificacion'].'">'.$clientes['identificacion'].'</a></td>';
+          echo '<td>'.$clientes['pnombre'].' '.$clientes['snombre'].'</td>';
+          echo '<td>'.$clientes['papellido'].' '.$clientes['sapellido'].'</td>';
+          echo '<td>'.$clientes['direccion'].'</td>';
+          echo '<td>'.$clientes['telfijo'].'</td>';
+          echo '<td>'.$clientes['celular'].'</td>';
+          echo '<td>'.$clientes['ciudad'].'</td>';
+          echo '</tr>';
+        } ?>
+
   </table>
     </div>
 
@@ -41,16 +43,19 @@
           <th>Propietario</th>
           <th>Valor Comercial</th>
         </thead>
-      <?php if(!$inmuebles){echo "No hay inmuebles creados";} else foreach ($inmuebles as $inmueble): ?>
-  <tr>
-          <td> <a href="inmueble.php?id=<?php echo $inmueble['id']; ?>"><?php echo $inmueble['matricula']; ?></a></td>
-          <td> <?php echo $inmueble['tipo']; ?></td>
-          <td> <?php echo $inmueble['direccion']; ?></td>
-          <td> <?php echo $inmueble['ciudad']; ?></td>
-          <td> <?php echo $inmueble['pnombre'].' '.$inmueble['snombre'].' '.$inmueble['papellido'].' '.$inmueble['sapellido']; ?></td>
-          <td> <?php echo '$ '.$inmueble['valor']; ?></td>
-        </tr>
-      <?php endforeach; ?>
+
+        <?php if(!$inmuebles) {echo "No se han creado inmuebles";} else {
+          echo '<tr>';
+          echo '<td> <a href="inmueble.php?id='.$inmuebles['id'].'">'.$inmuebles['matricula'].'</a></td>';
+          echo '<td>'.$inmuebles['tipo'].'</td>';
+          echo '<td>'.$inmuebles['direccion'].'</td>';
+          echo '<td>'.$inmuebles['ciudad'].'</td>';
+          echo '<td>'.$inmuebles['pnombre'].' '.$inmuebles['snombre'].' '.$inmuebles['papellido'].' '.$inmuebles['sapellido'].'</td>';
+          echo '<td>'.$inmuebles['valor'].'</td>';
+          echo '</tr>';
+        } ?>
+
+
  </table>
     </div>
     <div class="recibos">
@@ -65,16 +70,17 @@
           <th>Valor</th>
           <th>Fecha de Registro</th>
         </thead>
-      <?php if(!$recibos){echo "No se han generado recibos";} else foreach ($recibos as $recibo): ?>
-  <tr>
-          <td><a href="recibo.php?id=<?php echo $recibo['nrecibo']; ?>"><?php echo $recibo['nrecibo']; ?></a></td>
-          <td> <?php echo $recibo['pnombre'].' '.$recibo['snombre'].' '.$recibo['papellido'].' '.$recibo['sapellido']; ?></td>
-          <td> <?php echo $recibo['concepto']; ?></td>
-          <td> <?php echo $recibo['tipo']; ?></td>
-          <td> <?php echo '$ '.$recibo['valorpago']; ?></td>
-          <td> <?php echo fecha($recibo['fecha']); ?></td>
-        </tr>
-      <?php endforeach; ?>
+
+        <?php if(!$recibos) {echo "No se han creado recibos";} else {
+          echo '<tr>';
+          echo '<td> <a href="recibo.php?id='.$recibos['nrecibo'].'">'.$recibos['nrecibo'].'</a></td>';
+          echo '<td>'.$recibos['pnombre'].' '.$recibos['snombre'].' '.$recibos['papellido'].' '.$recibos['sapellido'].'</td>';
+          echo '<td>'.$recibos['concepto'].'</td>';
+          echo '<td>'.$recibos['tipo'].'</td>';
+          echo '<td> $ '.$recibos['valorpago'].'</td>';
+          echo '<td>'.$recibos['fecha'].'</td>';
+          echo '</tr>';
+        } ?>
 
   </table>
     </div>
