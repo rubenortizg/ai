@@ -18,33 +18,84 @@ if (isset($_SESSION['usuario'])) {
     $usuario = $usuario[0];
 
     $id = ($_POST['idinmueble']);
-    $tipo = $_POST['tipo'];
+    if (isset($_POST['tipo'])) {
+      $tipo = $_POST['tipo'];
+    } else {
+      $tipo = '';
+    }
     $matricula = limpiarDatos($_POST['matricula']);
-    $idpropietario = $_POST['idprr'];
+    $matricula_ori = limpiarDatos($_POST['matricula_ori']);
+    if (isset($_POST['idprr'])) {
+      $idpropietario = $_POST['idprr'];
+    } else {
+      $idpropietario = '';
+    }
+    $cliente = obtener_nombre_cliente($conexion, $idpropietario);
     $direccion = limpiarDatos($_POST['direccion']);
     $ciudad = limpiarDatos($_POST['ciudad']);
-    $valor = limpiarDatos($_POST['valor']);
+    if (limpiarDatos($_POST['valor']) == 0) {
+      $valor = null;
+    } else {
+      $valor = limpiarDatos($_POST['valor']);
+    }    
     $descripcion = limpiarDatos($_POST['descripcion']);
     $idusuario = (int)$usuario['id'];
     $idinmueble = limpiarDatos($_POST['idinmueble']);
 
+
+
+// Validacion de ingreso de información a los formularios
+
+    $errores = '';
+    $enviado = '';
+
     $matriculaExiste = obtener_inmueble_por_matricula($conexion,$matricula);
 
-    $sql = 'UPDATE inmuebles SET matricula = :matricula, tipo = :tipo, direccion = :direccion, ciudad = :ciudad, valor = :valor, descripcion = :descripcion, idpropietario = :idpropietario, idusuario = :idusuario WHERE id = :id';
+    $matriculaExiste = $matriculaExiste[0];
 
-    $sentencia = $conexion->prepare($sql);
-    $sentencia->execute(array(
-      ':id' => $id,
-      ':matricula' => $matricula,
-      ':tipo' => $tipo,
-      ':direccion' => $direccion,
-      ':ciudad' => $ciudad,
-      ':valor' => $valor,
-      ':descripcion' => $descripcion,
-      ':idpropietario' => $idpropietario,
-      ':idusuario' => $idusuario));
+    $matriculaExiste = $matriculaExiste['matricula'];
 
-    header('Location: ' . RUTA . '/inmueble.php?id='.$idinmueble);
+    if ($matriculaExiste != null && $matriculaExiste != $matricula_ori) {
+      $errores .= 'La matricula del inmueble a actualizar existe en la base de datos para otro cliente, verifique el valor. <br />';
+    } else {
+      if (empty($matricula)) {
+        $errores .= 'Debe ingresar un valor de matricula. <br />';
+      }
+      if (empty($tipo)) {
+        $errores .= 'Debe seleccionar un tipo de inmueble. <br />';
+      }
+      if (empty($idpropietario)) {
+        $errores .= 'Debe seleccionar un cliente existente. <br />';
+      }
+      if (empty($direccion)) {
+        $errores .= 'Es necesario ingresar una direccion. <br />';
+      }
+      if (empty($ciudad)) {
+        $errores .= 'Es necesario ingresar una ciudad. <br />';
+      }
+    }
+
+    if (!$errores) {
+
+      $sql = 'UPDATE inmuebles SET matricula = :matricula, tipo = :tipo, direccion = :direccion, ciudad = :ciudad, valor = :valor, descripcion = :descripcion, idpropietario = :idpropietario, idusuario = :idusuario WHERE id = :id';
+
+      $sentencia = $conexion->prepare($sql);
+      $sentencia->execute(array(
+        ':id' => $id,
+        ':matricula' => $matricula,
+        ':tipo' => $tipo,
+        ':direccion' => $direccion,
+        ':ciudad' => $ciudad,
+        ':valor' => $valor,
+        ':descripcion' => $descripcion,
+        ':idpropietario' => $idpropietario,
+        ':idusuario' => $idusuario));
+
+      header('Location: ' . RUTA . '/inmueble.php?id='.$idinmueble);
+    }
+
+
+
   }
 
   else {
@@ -68,6 +119,7 @@ if (isset($_SESSION['usuario'])) {
     $login = $_SESSION['usuario'];
     $usuario = obtener_usuario_por_id($conexion,$login);
     $usuario = $usuario[0];
+    $enviado = '';
   }
 
   $pagina = basename(__FILE__ );

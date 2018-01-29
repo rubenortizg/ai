@@ -35,6 +35,7 @@ if (isset($_SESSION['usuario'])) {
     $notas = limpiarDatos($_POST['notas']);
     $idusuario = (int)$usuario['id'];
 
+// Validacion de ingreso de información a los formularios
 
     $errores = '';
     $enviado = '';
@@ -116,6 +117,7 @@ if (isset($_SESSION['usuario'])) {
     $login = $_SESSION['usuario'];
     $usuario = obtener_usuario_por_id($conexion,$login);
     $usuario = $usuario[0];
+    $enviado = '';
 
   }
 

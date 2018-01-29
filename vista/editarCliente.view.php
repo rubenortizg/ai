@@ -41,8 +41,11 @@
             <div class="form-group row my-0">
               <div class="col-12 col-md-6">
                 <label for="tipoid"><small>Tipo de documento</small></label>
-                <select class="form-control form-control-sm" name="tipoid">
-                  <option selected value="Cedula de Ciudadanía">Cedula de Ciudadanía</option>
+                <select class="form-control form-control-sm" name="tipoid" id="tipoid">
+                  <?php if(!$enviado && isset($tipoid)) {echo '<option value="'.$tipoid.'">'.$tipoid.'</option>';}
+                  else {echo '<option value="'.$cliente['tipoid'].'">'.$cliente['tipoid'].'</option>';}
+                  ?>
+                  <option value="Cedula de Ciudadanía">Cedula de Ciudadanía</option>
                   <option value="Cedula de Extranjeria">Cedula de Extranjeria</option>
                   <option value="NIT">NIT</option>
                   <option value="Tarjeta de Identidad">Tarjeta de Identidad</option>
@@ -99,8 +102,11 @@
             <div class="form-group row  my-0">
               <div class="col-12 col-md-4">
                 <label for="banco"><small>Banco</small></label>
-                <select class="form-control form-control-sm" name="banco">
-                  <option selected value="Bancolombia">Bancolombia </option>
+                <select class="form-control form-control-sm" name="banco" id="banco">
+                  <?php if(!$enviado && isset($banco)) {echo '<option value="'.$banco.'">'.$banco.' </option>';}
+                  else {echo '<option value="'.$cliente['banco'].'">'.$cliente['banco'].'</option>';}
+                  ?>
+                  <option value="Bancolombia">Bancolombia </option>
                   <option value="Davivienda">Davivienda </option>
                   <option value="Av Villas">Av Villas</option>
                   <option value="Banco Popular">Banco Popular</option>
@@ -120,7 +126,10 @@
               </div>
               <div class="col-12 col-md-4">
                 <label for="tcuenta"><small>Tipo de Cuenta</small></label>
-                <select class="form-control form-control-sm" name="tcuenta">
+                <select class="form-control form-control-sm" name="tcuenta" id="tcuenta">
+                  <?php if(!$enviado && isset($tcuenta)) {echo '<option value="'.$tcuenta.'">'.$tcuenta.' </option>';}
+                  else {echo '<option value="'.$cliente['tcuenta'].'">'.$cliente['tcuenta'].'</option>';}
+                  ?>
                   <option value="Ahorros">Ahorros</option>
                   <option value="Corriente">Corriente</option>
                 </select>
@@ -150,5 +159,29 @@
         </div>
       </div>
     </div>
+
+    <script>
+
+$(document).ready(function() {
+    $('#tipoid').select2({
+      placeholder: "Seleccione un tipo de documento",
+      allowClear: true
+   });
+});
+
+$(document).ready(function() {
+    $('#banco').select2({
+      placeholder: "Seleccione un banco",
+      allowClear: true
+   });
+});
+
+$(document).ready(function() {
+    $('#tcuenta').select2({
+      placeholder: "Seleccione un tipo de cuenta",
+      allowClear: true
+   });
+});
+</script>
 
 <?php require 'vista/footer.php' ?>

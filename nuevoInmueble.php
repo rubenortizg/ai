@@ -27,7 +27,11 @@ if (isset($_SESSION['usuario'])) {
     $cliente = obtener_nombre_cliente($conexion, $idpropietario);
     $direccion = limpiarDatos($_POST['direccion']);
     $ciudad = limpiarDatos($_POST['ciudad']);
-    $valor = limpiarDatos($_POST['valor']);
+    if (limpiarDatos($_POST['valor']) == 0) {
+      $valor = null;
+    } else {
+      $valor = limpiarDatos($_POST['valor']);
+    }
     $descripcion = limpiarDatos($_POST['descripcion']);
     $idusuario = (int)$usuario['id'];
     $ninmueble = $_POST['ninmueble'];
@@ -42,7 +46,7 @@ if (isset($_SESSION['usuario'])) {
     if ($matriculaExiste) {
       $errores .= 'La matricula del cliente ingresada existe en la base de datos, verifique el valor. <br />';
     } else {
-      if ($matricula == '') {
+      if (empty($matricula)) {
         $errores .= 'Debe ingresar un valor de matricula. <br />';
       }
       if (empty($idpropietario)) {

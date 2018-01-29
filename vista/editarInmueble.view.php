@@ -12,22 +12,39 @@
             <div class="col-2">
               <nav class="float-right nuevo">
                 <ul>
-                  <li><a href="inmueble.php?id=<?php echo $inmueble['id'];?>"><i class="fa fa-reply fa-lg"></i></a></li>
+                  <li><a href="inmueble.php?id=<?php if(isset($inmueble['id'])) { echo $inmueble['id']; } elseif (!$enviado && isset($id)) { echo $id;} ?>"><i class="fa fa-reply fa-lg"></i></a></li>
                 </ul>
               </nav>
             </div>
           </div>
 
+          <?php if (!empty($errores)): ?>
+
+            <div class="row">
+              <div class="col">
+                <div class="alert alert-danger alert-dismissible fade show" id="alerta">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Cerrar">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  <?php echo $errores; ?>
+                </div>
+              </div>
+            </div>
+
+          <?php endif ?>
+
           <div class="form-group mb-0">
-            <h6>Inmueble ID No. <span class="enfasis"><?php echo $inmueble['id']; ?></span></h6>
-            <input type="hidden" name="idinmueble" value="<?php echo $inmueble['id']; ?>">
+            <h6>Inmueble ID No. <span class="enfasis"><?php if(isset($inmueble['id'])) { echo $inmueble['id']; } elseif (!$enviado && isset($id)) { echo $id;} ?></span></h6>
+            <input type="hidden" name="idinmueble" value="<?php if(isset($inmueble['id'])) { echo $inmueble['id']; } elseif (!$enviado && isset($id)) { echo $id;} ?>">
           </div>
 
           <div class="form-group row my-0">
             <div class="col-12 col-md-6">
               <label for="tipo"><small>Tipo de Inmueble</small></label>
               <select class="form-control form-control-sm" name="tipo" id="tipo">
-                <option value="<?php echo $inmueble['tipo']?>"><?php echo $inmueble['tipo']; ?></option>
+                <?php if(!$enviado && isset($tipo)) {echo '<option value="'.$tipo.'">'.$tipo.'</option>';}
+                else {echo '<option value="'.$inmueble['tipo'].'">'.$inmueble['tipo'].'</option>';}
+                ?>
                 <option value="Apartamento">Apartamento </option>
                 <option value="Casa">Casa </option>
                 <option value="Local">Local</option>
@@ -37,8 +54,8 @@
             </div>
             <div class="col-12 col-md-6">
               <label for="matricula"><small>No. Matricula</small></label>
-              <input class="form-control form-control-sm" type="text" id="matricula" name="matricula" value="<?php echo $inmueble['matricula']; ?>"/>
-              <input type="hidden" name="idmatricula" id="idmatricula">
+              <input class="form-control form-control-sm" type="text" id="matricula" name="matricula" value="<?php if(isset($inmueble['matricula'])) { echo $inmueble['matricula']; } elseif (!$enviado && isset($matricula)) { echo $matricula;} ?>"/>
+              <input type="hidden" name="matricula_ori" value="<?php if(isset($inmueble['matricula'])) { echo $inmueble['matricula']; } elseif (!$enviado && isset($matricula_ori)) { echo $matricula_ori;} ?>">
             </div>
           </div>
 
@@ -46,7 +63,9 @@
             <div class="col-12 col-sm-12">
               <label for="idpropietario"><small>Propietario</small></label>
               <select class="form-control form-control-sm" name="idprr" id="idprr">
-                 <option value="<?php echo $inmueble['idpropietario']?>"><?php echo $inmueble['pnombre'].' '.$inmueble['snombre'].' '.$inmueble['papellido'].' '.$inmueble['sapellido']; ?></option>
+                <?php if(!$enviado && isset($idpropietario)) {echo '<option value="'.$idpropietario.'">'.$cliente.' </option>';}
+                else {echo '<option value="'.$inmueble['idpropietario'].'">'.$inmueble['pnombre'].' '.$inmueble['snombre'].' '.$inmueble['papellido'].' '.$inmueble['sapellido'].'</option>';}
+                ?>
               </select>
             </div>
           </div>
@@ -54,20 +73,24 @@
           <div class="form-group row my-0">
             <div class="col-12 col-md-8">
               <label for="direccion"><small>Direccion</small></label>
-              <input class="form-control form-control-sm" type="text" id="direccion" name="direccion" value="<?php echo $inmueble['direccion']; ?>" />
+              <input class="form-control form-control-sm" type="text" id="direccion" name="direccion" value="<?php if(isset($inmueble['direccion'])) { echo $inmueble['direccion']; } elseif (!$enviado && isset($direccion)) { echo $direccion;} ?>" />
             </div>
             <div class="col-12 col-md-4">
               <label for="ciudad"><small>Ciudad</small></label>
-              <input class="form-control form-control-sm" type="text" id="ciudad" name="ciudad" value="<?php echo $inmueble['ciudad']; ?>"/>
+              <input class="form-control form-control-sm" type="text" id="ciudad" name="ciudad" value="<?php if(isset($inmueble['ciudad'])) { echo $inmueble['ciudad']; } elseif (!$enviado && isset($ciudad)) { echo $ciudad;} ?>"/>
               <label for="valor"><small>Valor</small></label>
-              <input class="form-control form-control-sm" type="text" id="valor" name="valor" value="<?php echo $inmueble['valor']; ?>"/>
+              <input class="form-control form-control-sm" type="text" id="valor" name="valor" value="<?php
+                if(isset($inmueble['valor'])) { echo $inmueble['valor']; }
+                elseif(!$enviado && isset($valor)  && ($valor == '0')) {echo '';}
+                elseif(!$enviado && isset($valor)) { echo $valor;}
+              ?>"/>
             </div>
           </div>
 
           <div class="form-group row my-0">
             <div class="col-12 col-md-8">
               <label for="descripcion"><small>Descripción del inmueble</small></label>
-              <textarea class="form-control form-control-sm" id="descripcion" name="descripcion" /><?php echo $inmueble['descripcion']; ?></textarea>
+              <textarea class="form-control form-control-sm" id="descripcion" name="descripcion" /><?php if(isset($inmueble['descripcion'])) { echo $inmueble['descripcion']; } elseif (!$enviado && isset($descripcion)) { echo $descripcion;} ?></textarea>
             </div>
             <div class="col-12 col-md-4 d-flex align-items-end">
               <button class=" form-control btn btn-primary" type="submit">Modificar Inmueble</button>
