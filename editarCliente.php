@@ -18,7 +18,11 @@ if (isset($_SESSION['usuario'])) {
     $usuario = $usuario[0];
 
     $id = ($_POST['idcliente']);
-    $tipoid = $_POST['tipoid'];
+    if (isset($_POST['tipoid'])) {
+      $tipoid = $_POST['tipoid'];
+    } else {
+      $tipoid = '';
+    }
     $identificacion = (int)limpiarDatos($_POST['identificacion']);
     $identificacion_ori = (int)limpiarDatos($_POST['identificacion_ori']);
     $pnombre = limpiarDatos($_POST['pnombre']);
@@ -49,6 +53,9 @@ if (isset($_SESSION['usuario'])) {
     if ($clientExiste != null && $clientExiste != $identificacion_ori) {
       $errores .= 'La identificacion del cliente a actualizar existe en la base de datos para otro cliente, verifique el valor. <br />';
     } else {
+      if (empty($tipoid)) {
+        $errores .= 'Debe seleccionar un tipo de identificación. <br />';
+      }
       if (empty($identificacion)) {
         $errores .= 'Debe ingresar un numero de identificación. <br />';
       }

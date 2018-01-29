@@ -37,7 +37,7 @@ if (isset($_SESSION['usuario'])) {
       $valor = null;
     } else {
       $valor = limpiarDatos($_POST['valor']);
-    }    
+    }
     $descripcion = limpiarDatos($_POST['descripcion']);
     $idusuario = (int)$usuario['id'];
     $idinmueble = limpiarDatos($_POST['idinmueble']);
@@ -58,11 +58,11 @@ if (isset($_SESSION['usuario'])) {
     if ($matriculaExiste != null && $matriculaExiste != $matricula_ori) {
       $errores .= 'La matricula del inmueble a actualizar existe en la base de datos para otro cliente, verifique el valor. <br />';
     } else {
-      if (empty($matricula)) {
-        $errores .= 'Debe ingresar un valor de matricula. <br />';
-      }
       if (empty($tipo)) {
         $errores .= 'Debe seleccionar un tipo de inmueble. <br />';
+      }
+      if (empty($matricula)) {
+        $errores .= 'Debe ingresar un valor de matricula. <br />';
       }
       if (empty($idpropietario)) {
         $errores .= 'Debe seleccionar un cliente existente. <br />';

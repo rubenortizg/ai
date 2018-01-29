@@ -17,7 +17,11 @@ if (isset($_SESSION['usuario'])) {
     $usuario = obtener_usuario_por_id($conexion,$login);
     $usuario = $usuario[0];
 
-    $tipo = $_POST['tipo'];
+    if (isset($_POST['tipo'])) {
+      $tipo = $_POST['tipo'];
+    } else {
+      $tipo = '';
+    }
     $matricula = limpiarDatos($_POST['matricula']);
     if (isset($_POST['idarrienda'])) {
     $idpropietario = $_POST['idarrienda'];
@@ -46,6 +50,9 @@ if (isset($_SESSION['usuario'])) {
     if ($matriculaExiste) {
       $errores .= 'La matricula del cliente ingresada existe en la base de datos, verifique el valor. <br />';
     } else {
+      if (empty($tipo)) {
+        $errores .= 'Debe seleccionar un tipo de inmueble. <br />';
+      }
       if (empty($matricula)) {
         $errores .= 'Debe ingresar un valor de matricula. <br />';
       }

@@ -107,7 +107,7 @@
                 <label for="banco"><small>Banco</small></label>
                 <select class="form-control form-control-sm" name="banco" id="banco">
                   <?php if(!$enviado && isset($banco)) {echo '<option value="'.$banco.'">'.$banco.' </option>';} ?>
-
+                  <option></option>
                   <option value="Bancolombia">Bancolombia </option>
                   <option value="Davivienda">Davivienda </option>
                   <option value="Av Villas">Av Villas</option>
@@ -130,7 +130,7 @@
                 <label for="tcuenta"><small>Tipo de Cuenta</small></label>
                 <select class="form-control form-control-sm" name="tcuenta" id="tcuenta">
                   <?php if(!$enviado && isset($tcuenta)) {echo '<option value="'.$tcuenta.'">'.$tcuenta.' </option>';} ?>
-
+                  <option></option>
                   <option value="Ahorros">Ahorros</option>
                   <option value="Corriente">Corriente</option>
                 </select>
