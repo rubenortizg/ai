@@ -37,12 +37,12 @@ VALUES (
     NULL ,
     'german' ,
     'adc2f381a19ec61098cf133f02aa300b41ac7c49979997f560a14ba612240f694022ab94433deb60101067175cc9ed015b1d248508d96262954f2a81e545e357' ,
-    '14344543' ,
+    '80495329' ,
     'Cedula Ciudadanía' ,
     'German' ,
     '' ,
     'Gutierrez' ,
-    '' ,
+    'Torres' ,
     'gygasociadosltda@hotmail.com' ,
     'Usuario'
     );
@@ -53,12 +53,12 @@ VALUES (
       NULL ,
       'gloria' ,
       '6508956845491d639ed7c7cb821bad6ad7600b5bf896a7c214b95199e1d9da11dfd983bae627d9c44dc0ac8825660aff9f856df0d1b3fb1eb383ea030cbd895d' ,
-      '21344543' ,
+      '39703768' ,
       'Cedula Ciudadanía' ,
       'Gloria' ,
-      '' ,
-      'Gutierrez' ,
-      '' ,
+      'Cecilia' ,
+      'Pulido' ,
+      'Fetecua' ,
       'gygasociadosltda@hotmail.com' ,
       'Usuario'
       );
