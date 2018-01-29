@@ -59,7 +59,6 @@ function obtener_recibos($results, $conexion){
   return $sentencia->fetchAll();
 }
 
-
 function obtener_ingresos($results, $conexion){
   $inicio = (pagina_actual() > 1) ? pagina_actual()*$results - $results : 0;
   $sql = "SELECT SQL_CALC_FOUND_ROWS * FROM ingresos
@@ -212,6 +211,11 @@ function obtener_nombre_cliente($conexion, $id){
   return ($nombre) ? $nombre : false;
 }
 
+function obtenerValor($val){
+  $valorLetras = new numeroALetras();
+  $valorLetras = $valorLetras->aLetras($val,'COP');
+  return $valorLetras;
+}
 
 function obtener_inmueble_por_id($conexion, $id){
 

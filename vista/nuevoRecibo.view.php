@@ -18,6 +18,21 @@
             </div>
           </div>
 
+          <?php if (!empty($errores)): ?>
+
+            <div class="row">
+              <div class="col">
+                <div class="alert alert-danger alert-dismissible fade show" id="alerta">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Cerrar">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  <?php echo $errores; ?>
+                </div>
+              </div>
+            </div>
+
+          <?php endif ?>
+
           <div class="form-group row mb-0">
             <div class="col-12 col-md-6">
               <h6 class="">Recibo No. <span class="enfasis"><?php echo $nrecibo; ?></span></h6>
@@ -26,7 +41,7 @@
               <label for="valorpago"><small>Valor $</small></label>
             </div>
             <div class="col-12 col-md-4">
-              <input class="form-control form-control-sm" type="text" id="valorpago" name="valorpago" value=""/>
+              <input class="form-control form-control-sm" type="text" id="valorpago" name="valorpago" value="<?php if(!$enviado && isset($valorpago)) {echo $valorpago;} ?>"/>
             </div>
           </div>
 
@@ -38,54 +53,59 @@
             </div>
             <div class="col-12 col-md-6">
               <label for="fecha"><small>Fecha</small></label>
-              <input class="form-control form-control-sm" type="text" name="fecha" id="datepicker" readonly="readonly" size="10" />
+              <input class="form-control form-control-sm" type="text" name="fecha" id="datepicker" readonly="readonly" size="10" value="<?php if(!$enviado && isset($fecha)) {echo $fecha;} ?>"/>
             </div>
           </div>
 
           <div class="form-group row mb-0">
             <div class="col-12 col-md-12">
               <label for="idarrendatario"><small>Recibi(mos) de</small></label>
-              <select class="form-control form-control-sm" name="idarrienda" id="idarrienda"></select>
+              <select class="form-control form-control-sm" name="idarrienda" id="idarrienda">
+                <?php if(!$enviado && isset($idarrendatario)) {echo '<option value="'.$idarrendatario.'">'.$cliente.' </option>';} ?>
+              </select>
             </div>
           </div>
 
           <div class="form-group row mb-0">
             <div class="col-12">
               <label for="valorLetras"><small>La suma de</small></label>
-              <input class="form-control form-control-sm"type="text" id="valorLetras" name="valorLetras" readonly="readonly" />
+              <input class="form-control form-control-sm"type="text" id="valorLetras" name="valorLetras" readonly="readonly" value="<?php if(!$enviado && isset($valorpagoLetras)) {echo $valorpagoLetras;} ?>"/>
             </div>
           </div>
 
           <div class="form-group row mb-0">
             <div class="col-12 col-md-6">
               <label for="concepto"><small>Por concepto de</small></label>
-              <select class="form-control form-control-sm" name="concepto">
-                  <option selected value="Arrendamiento">Arrendamiento</option>
-                  <option value="Anticipo de S.">Anticipo Servicios</option>
-                  <option value="Comision Venta">Comisión Venta</option>
+              <select class="form-control form-control-sm" name="concepto" id="concepto">
+                <?php if(!$enviado && isset($concepto)) {echo '<option value="'.$concepto.'">'.$concepto.' </option>';} ?>
+                <option value="Arrendamiento">Arrendamiento</option>
+                <option value="Anticipo de S.">Anticipo Servicios</option>
+                <option value="Comision Venta">Comisión Venta</option>
               </select>
             </div>
             <div class="col-12 col-sm-6">
               <label for="tipoinmueble"><small>del inmueble tipo</small></label>
-              <input class="form-control form-control-sm" type="text" id="tipoinmueble" name="tipoinmueble" readonly="readonly" />
+              <input class="form-control form-control-sm" type="text" id="tipoinmueble" name="tipoinmueble" readonly="readonly" value="<?php if(!$enviado && isset($tipoinmueble)) {echo $tipoinmueble;} ?>"/>
             </div>
           </div>
 
           <div class="form-group row mb-0">
             <div class="col-12 col-md-12">
               <label for="direccion"><small>Ubicado en la</small></label>
-              <select class="form-control form-control-sm" name="iddireccion" id="iddireccion"></select>
+              <select class="form-control form-control-sm" name="iddireccion" id="iddireccion">
+                <?php if(!$enviado && isset($idinmueble)) {echo '<option value="'.$idinmueble.'">'.$inmueble.' </option>';} ?>
+              </select>
             </div>
           </div>
 
           <div class="form-group row mb-0">
             <div class="col-12 col-md-6">
               <label for="iperiodo"><small>Correspondiente al periodo del</small></label>
-              <input class="form-control form-control-sm" type="text" name="iperiodo" id="iperiodo" readonly="readonly" size="10"/>
+              <input class="form-control form-control-sm" type="text" name="iperiodo" id="iperiodo" readonly="readonly" size="10" value="<?php if(!$enviado && isset($iperiodo)) {echo $iperiodo;} ?>"/>
             </div>
             <div class="col-12 col-md-6">
               <label for="fperiodo"><small>al</small></label>
-              <input class="form-control form-control-sm" type="text" name="fperiodo" id="fperiodo" readonly="readonly" size="10" />
+              <input class="form-control form-control-sm" type="text" name="fperiodo" id="fperiodo" readonly="readonly" size="10" value="<?php if(!$enviado && isset($fperiodo)) {echo $fperiodo;} ?>"/>
             </div>
           </div>
 
@@ -131,6 +151,12 @@
      });
  });
 
+ $(document).ready(function() {
+     $('#concepto').select2({
+       placeholder: "Seleccione un cliente",
+       allowClear: true
+     });
+ });
 
  $(document).ready(function() {
      $('#iddireccion').select2({
@@ -150,6 +176,7 @@
      });
  });
 
+
 $(document).ready(iniciar);
 function iniciar(){
   $("#valorpago").focusout(mostrarValor);
@@ -166,6 +193,7 @@ function mostrarValor(){
   }
   });
 }
+
 jQuery(function($){
   $.datepicker.regional['es'] = {
     closeText: 'Cerrar',
